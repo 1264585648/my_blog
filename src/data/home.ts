@@ -10,8 +10,6 @@ export type LearningStep = {
   index: string;
   title: string;
   description: string;
-  tone: 'sage' | 'sky' | 'sand' | 'lavender';
-  icon: 'agent' | 'prompt' | 'rag' | 'build';
 };
 
 export type Project = {
@@ -50,47 +48,39 @@ export const learningPath: LearningStep[] = [
   {
     index: '01',
     title: 'Agent',
-    description: '理解智能体的核心概念、架构与常见实现模式。',
-    tone: 'sage',
-    icon: 'agent'
+    description: '从模型调用、工具使用、Planning、Memory 到可观测性，建立完整智能体知识体系。'
   },
   {
     index: '02',
-    title: 'Prompt',
-    description: '掌握提示词设计方法，提升模型理解与输出质量。',
-    tone: 'sky',
-    icon: 'prompt'
+    title: 'RAG',
+    description: '理解检索、切分、召回、重排、生成与评估，关注真实知识问答系统如何落地。'
   },
   {
     index: '03',
-    title: 'RAG',
-    description: '学习检索增强生成，构建知识驱动的问答系统。',
-    tone: 'sand',
-    icon: 'rag'
+    title: 'Vector Database',
+    description: '从向量、相似度到 ANN 索引与工程选型，边理解原理边实现一个最小向量数据库。'
   },
   {
     index: '04',
-    title: '工程实践',
-    description: '将想法落地为产品，从代码到部署形成完整闭环。',
-    tone: 'lavender',
-    icon: 'build'
+    title: 'Engineering',
+    description: 'Java、后端、数据采集、部署与产品工程，把 AI 能力真正接进可运行的软件。'
   }
 ];
 
 export const projects: Project[] = [
   {
-    title: 'AI 知识助手：你的随身问答伙伴',
-    description: '基于 RAG + Agent 的知识问答应用，支持文档上传、多轮对话与来源追溯。',
-    date: '2026-08-09',
-    cover: '/assets/project-ai-assistant.svg',
-    tags: ['RAG', 'Agent', 'FastAPI', 'Next.js']
+    title: 'Community Lead Gen Agent',
+    description: '从社区讨论、成员信息与行为信号中识别潜在客户，把多来源数据采集、标准化、意图识别与 Agent 分析拆成可插拔模块。',
+    date: '2026-08-10',
+    cover: '/assets/project-community-agent.svg',
+    tags: ['Agent', 'Collector', 'Intent', 'Open Source']
   },
   {
-    title: '个人数字花园（本网站）',
-    description: '书写与沉淀的个人知识库与博客，记录、连接，并让知识持续生长。',
+    title: 'xuan.z Personal Notes',
+    description: '这个网站本身也是一个长期项目：边学习、边实现、边沉淀，让文章、学习路径和项目复盘逐渐连接成个人知识体系。',
     date: '2026-08-11',
-    cover: '/assets/project-digital-garden.svg',
-    tags: ['Astro', 'MDX', 'Vercel']
+    cover: '/assets/project-personal-notes.svg',
+    tags: ['Astro', 'Notes', 'Knowledge Garden']
   }
 ];
 
