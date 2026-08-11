@@ -31,15 +31,15 @@ export const articles: Article[] = [
     cover: '/assets/article-vector-db.svg'
   },
   {
-    title: 'RAG 实战笔记：构建可落地的知识问答系统',
-    excerpt: '记录我做 RAG 时碰到的几个关键问题：怎么切、怎么搜、怎么重排，以及最后怎么判断效果到底好不好。',
+    title: 'RAG 实战笔记：切分、召回、重排和评估',
+    excerpt: '把我做 RAG 时最常反复调的几步记下来：文档怎么切、候选怎么召回、什么时候重排，以及效果怎么验。',
     date: '2026-08-08',
     href: '/articles/rag-practice',
     cover: '/assets/article-rag.svg'
   },
   {
-    title: '用 FastAPI + React 做一个小而美的产品',
-    excerpt: '从一个小想法开始，把前后端、部署和上线后的修改过程都记下来。',
+    title: '用 FastAPI + React 做一个小工具',
+    excerpt: '从一个小想法开始，把接口、页面、部署和上线后改过的东西都记下来。',
     date: '2026-08-04',
     href: '/articles/fastapi-react-product',
     cover: '/assets/article-fastapi.svg'
@@ -50,28 +50,28 @@ export const learningPath: LearningStep[] = [
   {
     index: '01',
     title: 'Agent',
-    description: '从 Function Calling 开始，把工具调用、Planning、Memory 这些东西一点点补齐。',
+    description: '先从 Function Calling 开始，再往 Planning、Memory 和多工具协作补。',
     tone: 'sage',
     icon: 'agent'
   },
   {
     index: '02',
     title: 'Prompt',
-    description: '记一些真正用过的写法，也顺便弄清楚上下文、参数和提示词为什么会影响结果。',
+    description: '不单独背模板，主要记实际用过的写法，以及它为什么有效。',
     tone: 'sky',
     icon: 'prompt'
   },
   {
     index: '03',
     title: 'RAG',
-    description: '从切分、召回到重排和评估，边做知识库边把不懂的地方补上。',
+    description: '边做知识库边补课：切分、召回、重排、评估，哪一步有问题就拆哪一步。',
     tone: 'sand',
     icon: 'rag'
   },
   {
     index: '04',
     title: '工程实践',
-    description: 'Java、后端、数据采集、部署。最后还是要把东西做出来、跑起来。',
+    description: 'Java、后端、采集、部署这些老本行。最终还是得把东西跑起来。',
     tone: 'lavender',
     icon: 'build'
   }
@@ -80,14 +80,14 @@ export const learningPath: LearningStep[] = [
 export const projects: Project[] = [
   {
     title: 'AI 知识助手',
-    description: '拿 RAG + Agent 做的知识问答项目，支持文档上传、多轮对话和来源追溯，主要用来试各种检索和 Agent 做法。',
+    description: '拿 RAG + Agent 做的知识问答项目。主要拿它试切分、检索、引用追溯和 Agent 调工具这些做法。',
     date: '2026-08-09',
     cover: '/assets/project-ai-assistant.svg',
     tags: ['RAG', 'Agent', 'FastAPI', 'Next.js']
   },
   {
     title: '个人笔记（本网站）',
-    description: '这个网站本身也是个小项目。用 Astro 搭，学到什么就补什么，顺便练习怎么把技术内容讲清楚。',
+    description: '这个站也是边做边改。用 Astro 搭，学到什么就补什么，顺便把自己没讲清楚的地方重新理一遍。',
     date: '2026-08-11',
     cover: '/assets/project-digital-garden.svg',
     tags: ['Astro', 'MDX', 'GitHub Pages']
@@ -96,7 +96,7 @@ export const projects: Project[] = [
 
 export const notes = [
   ['LLM 的上下文长度与注意力机制小记', '08-11'],
-  ['为什么温度参数会影响模型创造力', '08-09'],
+  ['Temperature 调高以后，模型到底变了什么？', '08-09'],
   ['向量数据库选型笔记（Milvus / Qdrant）', '08-06'],
   ['在 macOS / Windows 上管理多个开发环境', '08-02']
 ] as const;
