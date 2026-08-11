@@ -1,0 +1,27 @@
+---
+import SiteHeader from '../components/SiteHeader.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title = 'dv 的知识花园',
+  description = '记录学习，沉淀项目，分享思考。围绕 Agent、RAG、Prompt、Java 与工程实践。'
+} = Astro.props;
+---
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f6f1e7" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <SiteHeader />
+    <main><slot /></main>
+  </body>
+</html>

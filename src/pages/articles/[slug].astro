@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { articles } from '../../data/home';
+
+export function getStaticPaths() {
+  return articles.map((article) => ({
+    params: { slug: article.href.split('/').filter(Boolean).pop() },
+    props: { article }
+  }));
+}
+
+const { article } = Astro.props;
+---
+<BaseLayout title={`${article.title} · dv 的知识花园`} description={article.excerpt}>
+  <article class="article-page shell">
+    <a class="article-back" href="/articles/">← 返回文章</a>
+    <p class="page-kicker">Essay</p>
+    <h1>{article.title}</h1>
+    <div class="article-meta"><time>{article.date}</time><span>·</span><span>正文内容待补充</span></div>
+    <img class="article-hero-cover" src={article.cover} alt="" />
+    <div class="prose">
+      <p>{article.excerpt}</p>
+      <p>这里已经预留文章详情页结构。后续会接入 Astro Content Collection / MDX，让知识文章、目录、代码块、引用和项目链接都能保持统一排版。</p>
+      <h2>为什么要做这件事</h2>
+      <p>首页负责建立阅读入口，真正的知识密度放到文章页里。这样能保持首页克制，也能让长文拥有更舒适的阅读宽度和节奏。</p>
+    </div>
+  </article>
+</BaseLayout>
