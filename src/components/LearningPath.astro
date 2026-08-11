@@ -1,20 +1,20 @@
 ---
 import SectionTitle from './SectionTitle.astro';
-import Icon from './Icon.astro';
 import { learningPath } from '../data/home';
+import { withBase } from '../utils/paths';
 ---
 <section class="section shell learning-section">
-  <SectionTitle title="学习路径" href="/learning/" linkText="查看完整路径 →" />
-  <div class="learning-track">
-    {learningPath.map((step, index) => (
-      <>
-        <a class={`learning-card ${step.tone}`} href="/learning/">
-          <span class="step-index">{step.index}</span>
-          <span class="step-icon"><Icon name={step.icon} size={31} /></span>
-          <span class="step-copy"><strong>{step.title}</strong><small>{step.description}</small></span>
-        </a>
-        {index < learningPath.length - 1 && <span class="track-arrow" aria-hidden="true">····→</span>}
-      </>
+  <SectionTitle title="Learning" href="/learning/" linkText="学习地图 →" />
+  <div class="learning-list">
+    {learningPath.map((step) => (
+      <a class="learning-row" href={withBase('/learning/')}>
+        <span class="step-index">{step.index}</span>
+        <span class="step-copy">
+          <strong>{step.title}</strong>
+          <small>{step.description}</small>
+        </span>
+        <span class="learning-status">持续整理 <b>↗</b></span>
+      </a>
     ))}
   </div>
 </section>
