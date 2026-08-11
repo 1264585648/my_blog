@@ -15,10 +15,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Confirm merged PR
-        run: echo "Merged PR #${{ github.event.pull_request.number }} will trigger the Pages deployment workflow."
+        run: |
+          echo "Merged PR ${{ github.event.pull_request.number }} will trigger the Pages deployment workflow."
 
       - name: Report merge signal
         env:
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
-        run: gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body "✅ Merge signal completed; Pages deployment is next."
+        run: |
+          gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body "✅ Merge signal completed; Pages deployment is next."
