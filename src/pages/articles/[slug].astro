@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { articles } from '../../data/home';
+import { withBase } from '../../utils/paths';
 
 export function getStaticPaths() {
   return articles.map((article) => ({
@@ -13,11 +14,11 @@ const { article } = Astro.props;
 ---
 <BaseLayout title={`${article.title} · xuan.z 的个人笔记`} description={article.excerpt}>
   <article class="article-page shell">
-    <a class="article-back" href="/articles/">← 返回文章</a>
+    <a class="article-back" href={withBase('/articles/')}>← 返回文章</a>
     <p class="page-kicker">Essay</p>
     <h1>{article.title}</h1>
     <div class="article-meta"><time>{article.date}</time><span>·</span><span>正文内容待补充</span></div>
-    <img class="article-hero-cover" src={article.cover} alt="" />
+    <img class="article-hero-cover" src={withBase(article.cover)} alt="" />
     <div class="prose">
       <p>{article.excerpt}</p>
       <p>这里已经预留文章详情页结构。后续会接入 Astro Content Collection / MDX，让知识文章、目录、代码块、引用和项目链接都能保持统一排版。</p>
