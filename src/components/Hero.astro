@@ -1,22 +1,23 @@
 ---
+import Icon from './Icon.astro';
 import { withBase } from '../utils/paths';
 ---
 <section class="hero shell">
   <div class="hero-copy">
-    <p class="eyebrow">xuan.z 的个人笔记</p>
-    <h1>写点技术笔记，<br />顺便把项目做出来。</h1>
+    <p class="eyebrow"><Icon name="leaf" size={17} /> 技术笔记 · 项目记录 · 随手记</p>
+    <h1>一边做项目，<br />一边整理知识</h1>
     <p class="hero-intro">
-      主要记 Agent、RAG、向量数据库和 Java。
-      很多内容都是边学边写的，能跑的代码尽量放出来，踩过的坑也一起记。
+      这里主要记我最近在学和在做的东西：Agent、RAG、向量数据库、Java。
+      遇到好用的方法、踩过的坑、做项目时的取舍，顺手整理下来。
     </p>
     <div class="hero-actions">
-      <a class="text-link primary-link" href={withBase('/articles/')}>看文章 <span>↗</span></a>
-      <a class="text-link" href="https://github.com/1264585648" target="_blank" rel="noreferrer">GitHub <span>↗</span></a>
+      <a class="button primary" href={withBase('/articles/')}><Icon name="leaf" size={18} />看文章</a>
+      <a class="button secondary" href={withBase('/projects/')}><span class="folder-icon">□</span>看项目</a>
     </div>
-    <p class="hero-meta">最近在折腾：Vector DB / Agent / RAG</p>
+    <p class="hero-meta"><span class="sprout">⌁</span> 最近在写 · Vector DB / Agent / RAG</p>
   </div>
 
-  <figure class="hero-art">
-    <img src={withBase('/assets/hero-notes.svg')} alt="暖米白桌面上的工程笔记本、代码草图、植物与咖啡" />
-  </figure>
+  <div class="hero-art" aria-label="知识花园手帐插画">
+    <img src={withBase('/assets/hero-garden.svg')} alt="笔记本、RAG 流程、代码卡片与绿植组成的知识花园插画" />
+  </div>
 </section>
