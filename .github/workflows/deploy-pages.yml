@@ -12,6 +12,7 @@ permissions:
   pages: write
   id-token: write
   pull-requests: write
+  issues: write
 
 concurrency:
   group: pages
@@ -22,20 +23,11 @@ jobs:
     if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
-      - name: Resolve source PR
-        id: source
-        if: github.event_name == 'workflow_run'
-        shell: bash
-        run: |
-          PR_NUMBER="$(jq -r '.workflow_run.pull_requests[0].number // empty' "$GITHUB_EVENT_PATH")"
-          echo "pr_number=$PR_NUMBER" >> "$GITHUB_OUTPUT"
-
       - name: Report deployment start
-        if: steps.source.outputs.pr_number != ''
         env:
           GH_TOKEN: ${{ github.token }}
-          PR_NUMBER: ${{ steps.source.outputs.pr_number }}
-        run: gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body "⏳ Pages deployment started from the main branch context."
+        run: |
+          gh issue comment 11 --repo "$GITHUB_REPOSITORY" --body "⏳ workflow_run received; Pages build started from main. Run: $GITHUB_RUN_ID"
 
       - name: Checkout main
         uses: actions/checkout@v4
@@ -62,14 +54,10 @@ jobs:
           path: ./dist
 
       - name: Report successful build
-        if: steps.source.outputs.pr_number != ''
         env:
           GH_TOKEN: ${{ github.token }}
-          PR_NUMBER: ${{ steps.source.outputs.pr_number }}
-        run: gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body "✅ Astro build and Pages artifact upload succeeded."
-
-    outputs:
-      pr_number: ${{ steps.source.outputs.pr_number }}
+        run: |
+          gh issue comment 11 --repo "$GITHUB_REPOSITORY" --body "✅ Astro build and Pages artifact upload succeeded. Run: $GITHUB_RUN_ID"
 
   deploy:
     if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
@@ -85,13 +73,13 @@ jobs:
         uses: actions/deploy-pages@v4
 
       - name: Report deployment result
-        if: always() && needs.build.outputs.pr_number != ''
+        if: always()
         env:
           GH_TOKEN: ${{ github.token }}
-          PR_NUMBER: ${{ needs.build.outputs.pr_number }}
           PAGE_URL: ${{ steps.deployment.outputs.page_url }}
           DEPLOY_OUTCOME: ${{ steps.deployment.outcome }}
-        run: gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body "🚀 Pages deploy outcome: $DEPLOY_OUTCOME · $PAGE_URL"
+        run: |
+          gh issue comment 11 --repo "$GITHUB_REPOSITORY" --body "🚀 Pages deploy outcome: $DEPLOY_OUTCOME · $PAGE_URL · Run: $GITHUB_RUN_ID"
 
       - name: Fail if Pages deployment failed
         if: steps.deployment.outcome != 'success'
