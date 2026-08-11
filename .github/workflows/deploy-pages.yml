@@ -24,6 +24,13 @@ jobs:
     if: github.event_name != 'pull_request_target' || github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
+      - name: Report workflow trigger
+        if: github.event_name == 'pull_request_target'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body "⏳ Pages workflow triggered on main; starting Astro build."
+
       - name: Checkout main
         uses: actions/checkout@v4
         with:
@@ -48,6 +55,13 @@ jobs:
         with:
           path: ./dist
 
+      - name: Report successful build
+        if: github.event_name == 'pull_request_target'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body "✅ Astro build and Pages artifact upload succeeded."
+
   deploy:
     if: github.event_name != 'pull_request_target' || github.event.pull_request.merged == true
     environment:
@@ -58,12 +72,18 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
+        continue-on-error: true
         uses: actions/deploy-pages@v4
 
-      - name: Report successful deployment
-        if: github.event_name == 'pull_request_target'
+      - name: Report deployment result
+        if: always() && github.event_name == 'pull_request_target'
         env:
           GH_TOKEN: ${{ github.token }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
           PAGE_URL: ${{ steps.deployment.outputs.page_url }}
-        run: gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body "✅ GitHub Pages deployment succeeded: $PAGE_URL"
+          DEPLOY_OUTCOME: ${{ steps.deployment.outcome }}
+        run: gh pr comment "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --body "🚀 Pages deploy outcome: $DEPLOY_OUTCOME · $PAGE_URL"
+
+      - name: Fail if Pages deployment failed
+        if: steps.deployment.outcome != 'success'
+        run: exit 1
