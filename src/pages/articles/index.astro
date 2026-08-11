@@ -7,7 +7,7 @@ import { withBase } from '../../utils/paths';
   <section class="simple-page shell">
     <p class="page-kicker">Writing</p>
     <h1>文章</h1>
-    <p class="page-lead">系统整理技术知识，也记录实践过程中的判断、踩坑和复盘。</p>
+    <p class="page-lead">长一点的学习笔记和项目记录都放这里。很多文章会边学边改，不一定一次写完。</p>
     <div class="simple-list">
       {articles.map((article) => <a href={withBase(article.href)}><span><strong>{article.title}</strong><small>{article.excerpt}</small></span><time>{article.date}</time></a>)}
     </div>
