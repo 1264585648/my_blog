@@ -1,6 +1,8 @@
 ---
 import Icon from './Icon.astro';
-const pathname = Astro.url.pathname;
+import { stripBase, withBase } from '../utils/paths';
+
+const pathname = stripBase(Astro.url.pathname);
 const nav = [
   ['首页', '/'],
   ['学习路径', '/learning/'],
@@ -11,7 +13,7 @@ const nav = [
 ---
 <header class="site-header">
   <div class="shell header-inner">
-    <a class="brand" href="/" aria-label="dv 的知识花园首页">
+    <a class="brand" href={withBase('/')} aria-label="dv 的知识花园首页">
       <span class="brand-mark"><Icon name="leaf" size={30} /></span>
       <span class="brand-copy">
         <strong>dv 的知识花园</strong>
@@ -21,11 +23,11 @@ const nav = [
 
     <nav class="main-nav" aria-label="主导航">
       {nav.map(([label, href]) => (
-        <a class:list={[pathname === href && 'active']} href={href}>{label}</a>
+        <a class:list={[pathname === href && 'active']} href={withBase(href)}>{label}</a>
       ))}
     </nav>
 
-    <a class="search-link" href="/articles/" aria-label="搜索文章">
+    <a class="search-link" href={withBase('/articles/')} aria-label="搜索文章">
       <Icon name="search" size={24} />
     </a>
   </div>
