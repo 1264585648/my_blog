@@ -3,3 +3,4 @@ This file is intentionally harmless and can remain as deployment history.
 Verified deployment run trigger: 2026-08-11 20:53 +08:00.
 Final deployment verification trigger: 2026-08-11 21:02 +08:00.
 Diagnostic three-stage deployment trigger: 2026-08-11.
+Workflow-run deployment trigger: 2026-08-11.
