@@ -1,6 +1,7 @@
 ---
 import SectionTitle from './SectionTitle.astro';
 import { projects, notes } from '../data/home';
+import { withBase } from '../utils/paths';
 ---
 <section class="section shell projects-section">
   <div class="projects-head"><SectionTitle title="项目手记" href="/projects/" linkText="查看全部项目 →" /></div>
@@ -8,7 +9,7 @@ import { projects, notes } from '../data/home';
     <div class="project-grid">
       {projects.map((project) => (
         <article class="project-card">
-          <img src={project.cover} alt="" />
+          <img src={withBase(project.cover)} alt="" />
           <div class="project-content">
             <h3>{project.title}</h3>
             <p>{project.description}</p>
@@ -24,10 +25,10 @@ import { projects, notes } from '../data/home';
       <h3>碎片笔记</h3>
       <ul>
         {notes.map(([title, date]) => (
-          <li><a href="/articles/"><span>{title}</span><time>{date}</time></a></li>
+          <li><a href={withBase('/articles/')}><span>{title}</span><time>{date}</time></a></li>
         ))}
       </ul>
-      <a class="notes-more" href="/articles/">查看全部笔记 →</a>
+      <a class="notes-more" href={withBase('/articles/')}>查看全部笔记 →</a>
     </aside>
   </div>
 </section>
