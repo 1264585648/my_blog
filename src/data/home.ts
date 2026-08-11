@@ -50,28 +50,28 @@ export const learningPath: LearningStep[] = [
   {
     index: '01',
     title: 'Agent',
-    description: '先从 Function Calling 开始，再往 Planning、Memory 和多工具协作补。',
+    description: '从 Function Calling 起步，再补 Planning、Memory 和多工具协作。',
     tone: 'sage',
     icon: 'agent'
   },
   {
     index: '02',
     title: 'Prompt',
-    description: '不单独背模板，主要记实际用过的写法，以及它为什么有效。',
+    description: '只记真正用过的写法，顺便弄清上下文和参数为什么会影响结果。',
     tone: 'sky',
     icon: 'prompt'
   },
   {
     index: '03',
     title: 'RAG',
-    description: '边做知识库边补课：切分、召回、重排、评估，哪一步有问题就拆哪一步。',
+    description: '从切分、召回到重排和评估，边做知识库边把问题拆清楚。',
     tone: 'sand',
     icon: 'rag'
   },
   {
     index: '04',
     title: '工程实践',
-    description: 'Java、后端、采集、部署这些老本行。最终还是得把东西跑起来。',
+    description: 'Java、后端、采集和部署，把学到的东西做成真的能跑的项目。',
     tone: 'lavender',
     icon: 'build'
   }
