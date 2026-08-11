@@ -24,11 +24,11 @@ export type Project = {
 
 export const articles: Article[] = [
   {
-    title: '从 0 到 1 搭建一个 Function Calling Agent',
-    excerpt: '记录如何让 LLM 真正帮你干活：思路、关键点与一个最小可用实现。',
-    date: '2026-08-10',
-    href: '/articles/function-calling-agent',
-    cover: '/assets/article-agent.svg'
+    title: '01｜向量数据库究竟在解决什么问题？',
+    excerpt: '先不学 HNSW，从 SQL、关键词检索一路推导到语义检索，理解 Vector DB 为什么出现。',
+    date: '2026-08-11',
+    href: '/articles/vector-database-01',
+    cover: '/assets/article-vector-db.svg'
   },
   {
     title: 'RAG 实战笔记：构建可落地的知识问答系统',
