@@ -10,13 +10,14 @@ on:
 
 permissions:
   contents: read
+  actions: read
   pages: write
   id-token: write
   pull-requests: write
 
 concurrency:
   group: pages
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build:
