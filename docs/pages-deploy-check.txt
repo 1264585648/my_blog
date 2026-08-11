@@ -1,0 +1,2 @@
+GitHub Pages deployment trigger check: 2026-08-11.
+This file is intentionally harmless and can remain as deployment history.
