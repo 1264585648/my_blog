@@ -1,22 +1,39 @@
 ---
 import SectionTitle from './SectionTitle.astro';
-import { articles } from '../data/home';
+import { articles, notes } from '../data/home';
 import { withBase } from '../utils/paths';
+
+const [featured, ...rest] = articles;
 ---
 <section class="section shell latest-section">
-  <SectionTitle title="最新文章" href="/articles/" linkText="查看全部文章 →" />
-  <div class="article-grid">
-    {articles.map((article) => (
-      <article class="article-card">
-        <a class="article-cover" href={withBase(article.href)} tabindex="-1" aria-hidden="true">
-          <img src={withBase(article.cover)} alt="" />
-        </a>
-        <div class="article-body">
-          <h3><a href={withBase(article.href)}>{article.title}</a></h3>
-          <p>{article.excerpt}</p>
-          <time datetime={article.date}>{article.date}</time>
-        </div>
-      </article>
+  <SectionTitle title="Latest Writing" href="/articles/" linkText="全部文章 →" />
+
+  <article class="featured-article">
+    <div class="featured-copy">
+      <div class="article-kicker"><span>FEATURED</span><time datetime={featured.date}>{featured.date}</time></div>
+      <h3><a href={withBase(featured.href)}>{featured.title}</a></h3>
+      <p>{featured.excerpt}</p>
+      <a class="read-more" href={withBase(featured.href)}>继续阅读 <span>↗</span></a>
+    </div>
+    <a class="featured-cover" href={withBase(featured.href)} tabindex="-1" aria-hidden="true">
+      <img src={withBase(featured.cover)} alt="" />
+    </a>
+  </article>
+
+  <div class="writing-list">
+    {rest.map((article) => (
+      <a class="writing-row" href={withBase(article.href)}>
+        <time datetime={article.date}>{article.date.slice(5)}</time>
+        <span class="writing-main"><strong>{article.title}</strong><small>{article.excerpt}</small></span>
+        <span class="row-arrow">↗</span>
+      </a>
+    ))}
+    {notes.slice(0, 3).map(([title, date]) => (
+      <a class="writing-row note-row" href={withBase('/articles/')}>
+        <time>{date}</time>
+        <span class="writing-main"><strong>{title}</strong><small>短笔记 · 学习过程中的快速记录</small></span>
+        <span class="row-arrow">↗</span>
+      </a>
     ))}
   </div>
 </section>
