@@ -1,20 +1,21 @@
 ---
+import Icon from './Icon.astro';
 import { withBase } from '../utils/paths';
 ---
 <footer class="site-footer shell">
-  <div class="about-strip">
-    <div>
-      <p class="about-kicker">About xuan.z</p>
-      <h2>Java / AI Engineering / Agent</h2>
-      <p>Building, learning, writing. 用项目验证理解，把复杂问题整理成能重复使用的方法。</p>
+  <div class="about-card">
+    <div class="avatar-wrap"><img src={withBase('/assets/avatar.svg')} alt="xuan.z 的插画头像占位图" /></div>
+    <div class="about-copy">
+      <h2>关于我</h2>
+      <p>Java 后端开发，最近花了不少时间学 Agent、RAG 和向量数据库。这个站主要用来记学习过程，也放一些自己正在做的小项目。</p>
+      <p class="about-extra">有类似的问题或项目，欢迎来 GitHub 找我。</p>
     </div>
-    <div class="about-links">
-      <a href="https://github.com/1264585648" target="_blank" rel="noreferrer">GitHub ↗</a>
-      <a href={withBase('/about/')}>About ↗</a>
+    <div class="contact-list">
+      <a href="https://github.com/1264585648" target="_blank" rel="noreferrer"><Icon name="github" size={20} /><span>GitHub</span><small>github.com/1264585648</small></a>
+      <a href="mailto:hello@example.com"><Icon name="mail" size={20} /><span>邮箱</span><small>待配置</small></a>
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2026 xuan.z</span>
-    <span>保持好奇，持续构建。</span>
+    <span>© 2026 xuan.z 的个人笔记</span><span>慢慢写，慢慢补。</span>
   </div>
 </footer>
