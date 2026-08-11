@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { articles } from '../../data/home';
+import { withBase } from '../../utils/paths';
 ---
 <BaseLayout title="文章 · xuan.z 的个人笔记">
   <section class="simple-page shell">
@@ -8,7 +9,7 @@ import { articles } from '../../data/home';
     <h1>文章</h1>
     <p class="page-lead">系统整理技术知识，也记录实践过程中的判断、踩坑和复盘。</p>
     <div class="simple-list">
-      {articles.map((article) => <a href={article.href}><span><strong>{article.title}</strong><small>{article.excerpt}</small></span><time>{article.date}</time></a>)}
+      {articles.map((article) => <a href={withBase(article.href)}><span><strong>{article.title}</strong><small>{article.excerpt}</small></span><time>{article.date}</time></a>)}
     </div>
   </section>
 </BaseLayout>
