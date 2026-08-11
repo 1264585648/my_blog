@@ -1,0 +1,130 @@
+---
+export type TocItem = {
+  id: string;
+  label: string;
+  hint?: string;
+};
+
+interface Props {
+  items: TocItem[];
+  title?: string;
+}
+
+const { items, title = '本文目录' } = Astro.props;
+---
+
+<nav class="article-toc" aria-label={title}>
+  <div class="toc-heading">
+    <span>CONTENTS</span>
+    <strong>{title}</strong>
+  </div>
+  <ol>
+    {items.map((item, index) => (
+      <li>
+        <a href={`#${item.id}`}>
+          <span class="toc-index">{String(index + 1).padStart(2, '0')}</span>
+          <span class="toc-copy">
+            <strong>{item.label}</strong>
+            {item.hint && <small>{item.hint}</small>}
+          </span>
+        </a>
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<style>
+  .article-toc {
+    margin-top: 26px;
+    padding: 24px 26px;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: rgba(255, 253, 248, .72);
+    box-shadow: 0 12px 30px rgba(82, 75, 63, .05);
+  }
+
+  .toc-heading {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  .toc-heading span {
+    color: var(--sage);
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: .16em;
+  }
+
+  .toc-heading strong {
+    color: #49463f;
+    font-family: var(--hand-font);
+    font-size: 22px;
+  }
+
+  ol {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px 12px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li { min-width: 0; }
+
+  a {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    min-height: 58px;
+    padding: 11px 12px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    color: inherit;
+    text-decoration: none;
+    transition: background .18s ease, border-color .18s ease, transform .18s ease;
+  }
+
+  a:hover {
+    border-color: #d7ddcf;
+    background: #f2f5ed;
+    transform: translateY(-1px);
+  }
+
+  .toc-index {
+    flex: 0 0 auto;
+    color: #9aa493;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    padding-top: 3px;
+  }
+
+  .toc-copy {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .toc-copy strong {
+    color: #514e46;
+    font-family: var(--body-font);
+    font-size: 13px;
+    line-height: 1.45;
+  }
+
+  .toc-copy small {
+    color: var(--ink-faint);
+    font-family: var(--body-font);
+    font-size: 10px;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 680px) {
+    .article-toc { padding: 20px; }
+    ol { grid-template-columns: 1fr; }
+  }
+</style>
