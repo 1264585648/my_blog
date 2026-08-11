@@ -1,6 +1,8 @@
 name: Deploy blog to GitHub Pages
 
 on:
+  push:
+    branches: [main]
   workflow_run:
     workflows: ["Merge signal"]
     types: [completed]
@@ -11,8 +13,6 @@ permissions:
   actions: read
   pages: write
   id-token: write
-  pull-requests: write
-  issues: write
 
 concurrency:
   group: pages
@@ -20,15 +20,9 @@ concurrency:
 
 jobs:
   build:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
-      - name: Report deployment start
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh issue comment 11 --repo "$GITHUB_REPOSITORY" --body "⏳ workflow_run received; Pages build started from main. Run: $GITHUB_RUN_ID"
-
       - name: Checkout main
         uses: actions/checkout@v4
         with:
@@ -53,14 +47,8 @@ jobs:
         with:
           path: ./dist
 
-      - name: Report successful build
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          gh issue comment 11 --repo "$GITHUB_REPOSITORY" --body "✅ Astro build and Pages artifact upload succeeded. Run: $GITHUB_RUN_ID"
-
   deploy:
-    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -69,18 +57,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        continue-on-error: true
         uses: actions/deploy-pages@v4
-
-      - name: Report deployment result
-        if: always()
-        env:
-          GH_TOKEN: ${{ github.token }}
-          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
-          DEPLOY_OUTCOME: ${{ steps.deployment.outcome }}
-        run: |
-          gh issue comment 11 --repo "$GITHUB_REPOSITORY" --body "🚀 Pages deploy outcome: $DEPLOY_OUTCOME · $PAGE_URL · Run: $GITHUB_RUN_ID"
-
-      - name: Fail if Pages deployment failed
-        if: steps.deployment.outcome != 'success'
-        run: exit 1
