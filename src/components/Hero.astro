@@ -1,0 +1,22 @@
+---
+import Icon from './Icon.astro';
+---
+<section class="hero shell">
+  <div class="hero-copy">
+    <p class="eyebrow"><Icon name="leaf" size={17} /> 技术笔记 · 项目复盘 · 长期学习</p>
+    <h1>一边做项目，<br />一边整理知识</h1>
+    <p class="hero-intro">
+      在这里，我记录学习过程中的思考与踩坑，沉淀可复用的方法与实践，
+      也分享一些正在做的项目和探索。希望这些内容，能给同样在路上的你带来一点启发与陪伴。
+    </p>
+    <div class="hero-actions">
+      <a class="button primary" href="/articles/"><Icon name="leaf" size={18} />开始阅读</a>
+      <a class="button secondary" href="/projects/"><span class="folder-icon">□</span>查看项目</a>
+    </div>
+    <p class="hero-meta"><span class="sprout">⌁</span> 持续更新中 · Agent / RAG / Prompt / 工程实践</p>
+  </div>
+
+  <div class="hero-art" aria-label="知识花园手帐插画">
+    <img src="/assets/hero-garden.svg" alt="笔记本、RAG 流程、代码卡片与绿植组成的知识花园插画" />
+  </div>
+</section>

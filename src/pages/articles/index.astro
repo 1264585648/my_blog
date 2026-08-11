@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { articles } from '../../data/home';
+---
+<BaseLayout title="文章 · dv 的知识花园">
+  <section class="simple-page shell">
+    <p class="page-kicker">Writing</p>
+    <h1>文章</h1>
+    <p class="page-lead">系统整理技术知识，也记录实践过程中的判断、踩坑和复盘。</p>
+    <div class="simple-list">
+      {articles.map((article) => <a href={article.href}><span><strong>{article.title}</strong><small>{article.excerpt}</small></span><time>{article.date}</time></a>)}
+    </div>
+  </section>
+</BaseLayout>

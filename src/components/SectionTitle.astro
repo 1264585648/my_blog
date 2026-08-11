@@ -1,0 +1,9 @@
+---
+import Icon from './Icon.astro';
+interface Props { title: string; href?: string; linkText?: string; }
+const { title, href, linkText = '查看全部 →' } = Astro.props;
+---
+<div class="section-title-row">
+  <h2><Icon name="leaf" size={20} />{title}</h2>
+  {href && <a href={href}>{linkText}</a>}
+</div>

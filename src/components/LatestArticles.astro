@@ -1,0 +1,21 @@
+---
+import SectionTitle from './SectionTitle.astro';
+import { articles } from '../data/home';
+---
+<section class="section shell latest-section">
+  <SectionTitle title="最新文章" href="/articles/" linkText="查看全部文章 →" />
+  <div class="article-grid">
+    {articles.map((article) => (
+      <article class="article-card">
+        <a class="article-cover" href={article.href} tabindex="-1" aria-hidden="true">
+          <img src={article.cover} alt="" />
+        </a>
+        <div class="article-body">
+          <h3><a href={article.href}>{article.title}</a></h3>
+          <p>{article.excerpt}</p>
+          <time datetime={article.date}>{article.date}</time>
+        </div>
+      </article>
+    ))}
+  </div>
+</section>
