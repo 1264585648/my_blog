@@ -1,15 +1,52 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { articles } from '../../data/home';
+import { vectorDatabaseSeries } from '../../data/vectorDatabaseSeries';
 import { withBase } from '../../utils/paths';
 ---
 <BaseLayout title="文章 · xuan.z 的个人笔记">
   <section class="simple-page shell">
     <p class="page-kicker">Writing</p>
     <h1>文章</h1>
-    <p class="page-lead">长一点的学习笔记和项目记录都放这里。很多文章会边学边改，不一定一次写完。</p>
+    <p class="page-lead">长一点的学习笔记和项目记录都放这里。很多主题会拆成系列，一篇只解决一个核心问题。</p>
+
+    <a class="series-card" href={withBase('/series/vector-database/')}>
+      <span>
+        <small>LEARNING SERIES · {vectorDatabaseSeries.length} 篇</small>
+        <strong>Build Your Own Vector Database</strong>
+        <p>从语义检索的需求一路学到 Flat Search、IVF、HNSW，最后做一个 Mini Vector DB。当前已发布第 01 篇。</p>
+      </span>
+      <b>查看系列 →</b>
+    </a>
+
     <div class="simple-list">
       {articles.map((article) => <a href={withBase(article.href)}><span><strong>{article.title}</strong><small>{article.excerpt}</small></span><time>{article.date}</time></a>)}
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .series-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    margin: 28px 0 18px;
+    padding: 24px 26px;
+    border: 1px solid #c8d3c0;
+    border-radius: 18px;
+    background: linear-gradient(145deg, #eef3e9, #faf8f1);
+    color: inherit;
+    text-decoration: none;
+    transition: transform .18s ease, box-shadow .18s ease;
+  }
+  .series-card:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(82,75,63,.07); }
+  .series-card span { display: flex; flex-direction: column; gap: 6px; }
+  .series-card small { color: var(--sage); font-size: 9px; font-weight: 800; letter-spacing: .14em; }
+  .series-card strong { color: #4e4b43; font-family: var(--hand-font); font-size: 25px; }
+  .series-card p { max-width: 650px; margin: 0; color: var(--ink-soft); font-family: var(--body-font); font-size: 12px; line-height: 1.7; }
+  .series-card b { flex: 0 0 auto; color: var(--sage-dark); font-size: 11px; }
+  @media (max-width: 640px) {
+    .series-card { align-items: flex-start; flex-direction: column; padding: 20px; }
+  }
+</style>
