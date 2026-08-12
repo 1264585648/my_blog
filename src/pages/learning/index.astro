@@ -1,8 +1,84 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import LearningPath from '../../components/LearningPath.astro';
+import { learningPhases } from '../../data/learning';
+import { withBase } from '../../utils/paths';
+import '../../styles/learning.css';
 ---
-<BaseLayout title="学习路径 · xuan.z 的个人笔记">
-  <section class="simple-page shell"><p class="page-kicker">Learn</p><h1>学习路径</h1><p class="page-lead">现在主要按 Agent、Prompt、RAG 和工程实践几条线在补。学到哪写到哪，顺序也会跟着调整。</p></section>
-  <LearningPath />
+<BaseLayout
+  title="Agent 学习路径 · xuan.z 的个人笔记"
+  description="沿着完整路线学习 Agent：从基础、Tool Use、Agentic RAG、Planning、Multi-Agent，到 Context、Memory、部署与安全。"
+>
+  <section class="agent-learning-page shell">
+    <header class="learning-hero">
+      <div class="learning-hero-copy">
+        <p class="learning-eyebrow">Agent 学习笔记</p>
+        <h1>Agent 学习路径</h1>
+        <p class="learning-intro">
+          我准备沿着一条完整的路线，把 Agent 从基础原理一路学到生产实践。<br />
+          不赶进度，边学边做，也把每一步整理成可以回看的笔记。
+        </p>
+        <div class="learning-meta" aria-label="学习路径概览">
+          <span class="sprout">♧</span>
+          <span>18 个主题</span>
+          <span class="dot"></span>
+          <span>4 个阶段</span>
+          <span class="dot"></span>
+          <span>持续更新</span>
+        </div>
+        <p class="learning-source">路线参考 · Microsoft AI Agents for Beginners</p>
+      </div>
+
+      <div class="learning-hero-art" aria-label="Agent 学习手帐插画">
+        <img
+          src={withBase('/assets/learning-agent-notebook.svg')}
+          alt="打开的 Agent 学习笔记本、RAG、Memory、Tool 流程和手帐便签"
+        />
+      </div>
+    </header>
+
+    <div class="learning-roadmap">
+      {learningPhases.map((phase) => (
+        <section class="learning-phase" aria-labelledby={`phase-${phase.index}`}>
+          <aside class="phase-aside">
+            <p class="phase-index">{phase.index}</p>
+            <p class="phase-eyebrow">{phase.eyebrow}</p>
+            <h2 id={`phase-${phase.index}`}>{phase.title}</h2>
+            <p class="phase-description">{phase.description}</p>
+            {phase.note && <span class="phase-note">{phase.note}</span>}
+          </aside>
+
+          <div class="phase-topics">
+            {phase.topics.map((topic) => {
+              const isStart = topic.index === '01';
+              return (
+                <article
+                  id={`topic-${topic.index}`}
+                  class:list={[
+                    'topic-row',
+                    isStart && 'is-current',
+                    topic.status === 'done' && 'is-done'
+                  ]}
+                >
+                  <span class="topic-status-dot" aria-hidden="true"></span>
+                  <span class="topic-index">{topic.index}</span>
+                  <strong class="topic-title">{topic.title}</strong>
+                  <span class="topic-zh">{topic.zh}</span>
+                  <span class="topic-description">{topic.description}</span>
+                  {topic.href ? (
+                    <a class="topic-action link" href={withBase(topic.href)}>查看笔记 →</a>
+                  ) : isStart ? (
+                    <span class="topic-action topic-current-label">从这里开始</span>
+                  ) : (
+                    <span class="topic-action">待整理 →</span>
+                  )}
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      ))}
+    </div>
+
+    <p class="learning-footer-note">持续学习 · 持续实践 · 持续沉淀</p>
+  </section>
 </BaseLayout>
