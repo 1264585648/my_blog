@@ -20,18 +20,7 @@
 
 不同类型的技术文章，最适合的理解路径并不一样。
 
-如果为了“套模板”强行加入：
-
-- 本章目标
-- 对比卡
-- 思考一下
-- 流程图
-- 代码块
-- 本章复盘
-- 自我检查
-- 延伸阅读
-
-反而会让文章看起来像课程后台或标准化教材，失去个人技术笔记应该有的自然节奏。
+如果为了“套模板”强行加入本章目标、对比卡、思考卡、流程图、代码块、复盘、自检和延伸阅读，反而会让文章像标准化教材或课程后台，而不是自然的个人技术笔记。
 
 因此，`LearningArticleLayout.astro` 的定位是：
 
@@ -43,11 +32,7 @@
 
 ## 2. 必须统一的部分
 
-以下内容应该保持统一，因为它们决定了网站是否仍然属于“xuan.z 的个人笔记”。
-
-### 2.1 视觉系统
-
-必须统一：
+必须统一的是网站的视觉基因和基础阅读体验：
 
 - 暖米白纸张背景
 - 鼠尾草绿主强调色
@@ -60,9 +45,7 @@
 - 链接与导航视觉
 - 移动端阅读体验
 
-### 2.2 页面级基础结构
-
-大部分学习文章建议保留：
+大部分学习文章建议保留基础页面结构：
 
 ```text
 Site Header
@@ -109,16 +92,9 @@ Previous / Next
 
 ## 4. 先确定文章类型，再确定结构
 
-### 4.1 概念型文章
+### 概念型文章
 
-适合：
-
-- 什么是 Agent
-- 什么是 RAG
-- 什么是 Embedding
-- 什么是 Context Engineering
-
-推荐结构：
+适合：什么是 Agent、什么是 RAG、什么是 Embedding、什么是 Context Engineering。
 
 ```text
 真实问题
@@ -138,31 +114,11 @@ Previous / Next
 总结
 ```
 
-优先组件：
+优先组件：Comparison、Diagram / Flow、Key Idea、Definition。
 
-- Comparison
-- Diagram / Flow
-- Key Idea
-- Definition
+### 原理型文章
 
-不一定需要：
-
-- 大量代码
-- 多个步骤卡
-- Learning Goals
-
----
-
-### 4.2 原理型文章
-
-适合：
-
-- Embedding 怎么工作
-- 向量相似度
-- HNSW
-- Transformer Attention
-
-推荐结构：
+适合：Embedding 怎么工作、向量相似度、HNSW、Transformer Attention。
 
 ```text
 问题
@@ -182,26 +138,11 @@ Previous / Next
 回到核心结论
 ```
 
-优先组件：
+优先组件：Diagram、Formula / 推导、Code、Experiment Result、Note。
 
-- Diagram
-- Formula / 推导
-- Code
-- Experiment Result
-- Note
+### 工程实践型文章
 
----
-
-### 4.3 工程实践型文章
-
-适合：
-
-- 实现一个 Tool
-- 构建一个最小 Agent
-- 接入 MCP
-- 构建 RAG Pipeline
-
-推荐结构：
+适合：实现一个 Tool、构建一个最小 Agent、接入 MCP、构建 RAG Pipeline。
 
 ```text
 要做什么
@@ -225,24 +166,11 @@ Code
 完整实现
 ```
 
-优先组件：
+优先组件：Steps、Code Block、Result、Pitfall / Note。
 
-- Steps
-- Code Block
-- Result
-- Pitfall / Note
+### 源码阅读型文章
 
----
-
-### 4.4 源码阅读型文章
-
-适合：
-
-- LangGraph 源码
-- Agent Framework 调用链
-- Java 框架源码
-
-推荐结构：
+适合：LangGraph 源码、Agent Framework 调用链、Java 框架源码。
 
 ```text
 先看整体架构
@@ -262,24 +190,11 @@ Code
 总结
 ```
 
-优先组件：
+优先组件：Architecture Diagram、Call Chain、Code、Source Map。
 
-- Architecture Diagram
-- Call Chain
-- Code
-- Source Map
+### 对比 / 选型型文章
 
----
-
-### 4.5 对比 / 选型型文章
-
-适合：
-
-- Workflow vs Agent
-- LangGraph vs OpenAI Agents SDK
-- Milvus vs Qdrant
-
-推荐结构：
+适合：Workflow vs Agent、LangGraph vs OpenAI Agents SDK、Milvus vs Qdrant。
 
 ```text
 为什么要比较
@@ -295,12 +210,7 @@ Trade-off
 选择建议
 ```
 
-优先组件：
-
-- Comparison
-- Table
-- Scenario
-- Key Idea
+优先组件：Comparison、Table、Scenario、Key Idea。
 
 ---
 
@@ -316,7 +226,7 @@ Trade-off
 
 ---
 
-## 6. 推荐的叙事原则
+## 6. 推荐叙事原则
 
 技术文章优先使用：
 
@@ -329,30 +239,19 @@ Trade-off
 真正重要的是：
 
 1. 每一节都回答一个明确问题。
-2. 下一节应该自然来自上一节留下的问题。
+2. 下一节自然来自上一节留下的问题。
 3. 图解只在关系、流程、结构难以用一句话说清楚时出现。
-4. 代码只在它能验证观点或帮助迁移时出现。
+4. 代码只在能验证观点或帮助迁移时出现。
 5. 卡片只用于真正需要强调的内容。
-6. 不要为了页面“丰富”而增加模块。
+6. 不为了页面“丰富”而增加模块。
 
 ---
 
 ## 7. 页面密度原则
 
-一篇正式文章不应该像“模板组件展示页”。
+正式文章不应该像“模板组件展示页”。
 
-如果同一篇文章里连续出现：
-
-- 目标卡
-- 对比卡
-- 思考卡
-- 流程卡
-- 代码卡
-- 步骤卡
-- 复盘卡
-- 自检卡
-
-需要重新检查：是不是在展示 UI，而不是在讲知识。
+如果同一篇文章连续出现目标卡、对比卡、思考卡、流程卡、代码卡、步骤卡、复盘卡、自检卡，需要重新检查：是不是在展示 UI，而不是讲知识。
 
 推荐：
 
@@ -360,7 +259,7 @@ Trade-off
 
 ---
 
-## 8. 对 `LearningArticleLayout` 的使用方式
+## 8. `LearningArticleLayout` 的使用方式
 
 文件：
 
@@ -368,9 +267,7 @@ Trade-off
 - `src/styles/article.css`
 - `src/components/ArticleToc.astro`
 
-它提供统一视觉能力，但 Props 均应按需使用。
-
-例如：
+它提供统一视觉能力，但 Props 均按需使用：
 
 - 不需要目录：不传 `tocItems`
 - 不需要目标：不传 `goals`
@@ -382,9 +279,7 @@ Trade-off
 
 ---
 
-## 9. 正式文章的判断标准
-
-完成一篇文章后检查：
+## 9. 正式文章检查清单
 
 - [ ] 文章结构是由知识本身决定，而不是由模板决定的吗？
 - [ ] 每一个组件都有明确教学价值吗？
@@ -398,8 +293,6 @@ Trade-off
 ---
 
 ## 10. 最终原则
-
-以后新增文章时遵循：
 
 > **先设计理解路径，再选择文章组件。**
 
