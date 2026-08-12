@@ -49,29 +49,29 @@ export const articles: Article[] = [
 export const learningPath: LearningStep[] = [
   {
     index: '01',
-    title: 'Agent',
-    description: '从 Function Calling 起步，再补 Planning、Memory 和多工具协作。',
+    title: 'Agent 基础能力',
+    description: 'Agent、Framework、Design Patterns、Tool Use、Agentic RAG 与可信 Agent。',
     tone: 'sage',
     icon: 'agent'
   },
   {
     index: '02',
-    title: 'Prompt',
-    description: '只记真正用过的写法，顺便弄清上下文和参数为什么会影响结果。',
+    title: '推理 · 规划 · 协作',
+    description: '继续学习 Planning、Multi-Agent、Metacognition 与生产化基础。',
     tone: 'sky',
     icon: 'prompt'
   },
   {
     index: '03',
-    title: 'RAG',
-    description: '从切分、召回到重排和评估，边做知识库边把问题拆清楚。',
+    title: 'Agent 系统架构',
+    description: '深入 Protocol、Context Engineering、Memory 与 Agent 编排实践。',
     tone: 'sand',
     icon: 'rag'
   },
   {
     index: '04',
-    title: '工程实践',
-    description: 'Java、后端、采集和部署，把学到的东西做成真的能跑的项目。',
+    title: '生产 · 部署 · 安全',
+    description: 'Computer Use、部署扩展、本地 Agent 与生产安全设计。',
     tone: 'lavender',
     icon: 'build'
   }
