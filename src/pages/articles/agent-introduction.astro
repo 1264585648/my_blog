@@ -1,0 +1,373 @@
+---
+import LearningArticleLayout from '../../layouts/LearningArticleLayout.astro';
+
+const tocItems = [
+  { id: 'from-llm', label: '为什么需要 Agent', hint: '先从普通 LLM 做不到的事情出发' },
+  { id: 'definition', label: '到底什么是 Agent', hint: '建立一个可以长期使用的定义' },
+  { id: 'boundaries', label: 'LLM、Chatbot、Workflow 与 Agent', hint: '把最容易混淆的概念一次分开' },
+  { id: 'loop', label: 'Agent Loop', hint: '理解 Decide → Act → Observe 的循环' },
+  { id: 'components', label: 'Agent 的最小组成', hint: 'Model、Instructions、Tools 与 State' },
+  { id: 'when-to-use', label: '什么时候应该用 Agent', hint: '不要把所有 LLM 应用都做成 Agent' },
+  { id: 'minimal-agent', label: '一个最小 Agent', hint: '用伪代码把核心机制串起来' },
+  { id: 'review', label: '本章复盘', hint: '用三句话重新讲清楚 Agent' },
+  { id: 'self-check', label: '自我检查', hint: '确认自己不是只记住了定义' }
+];
+
+const goals = [
+  '能用自己的话解释什么是 AI Agent，而不是只背一句定义。',
+  '能区分普通 LLM、Chatbot、Workflow 和 Agent 的核心差异。',
+  '理解 Agent 为什么通常以“决策 → 行动 → 观察”的循环持续工作。',
+  '知道什么任务值得使用 Agent，什么任务用普通代码或 Workflow 反而更好。'
+];
+
+const reviewItems = [
+  {
+    title: 'Agent 的关键不是“会聊天”',
+    text: '真正的变化是模型开始参与任务执行：根据目标决定下一步、使用工具、读取结果并继续推进。'
+  },
+  {
+    title: 'Agent 与 Workflow 的边界在控制权',
+    text: 'Workflow 的路径主要由代码预先规定；Agent 则让模型在运行时动态决定如何完成任务。'
+  },
+  {
+    title: 'Agent 本质上是一个受约束的执行循环',
+    text: '模型、工具和指令只是基础，系统还需要保存上下文、处理工具结果，并在完成、失败或触发停止条件时结束循环。'
+  }
+];
+
+const selfCheckItems = [
+  {
+    question: '为什么“给 Chatbot 接一个搜索 API”不一定就变成了 Agent？',
+    hint: '关键不是有没有 Tool，而是谁在决定什么时候调用、调用几次、拿到结果后下一步做什么。'
+  },
+  {
+    question: 'Workflow 和 Agent 最核心的区别是什么？',
+    hint: '想一想：任务路径主要是由开发者提前写死，还是由模型在运行过程中动态决定。'
+  },
+  {
+    question: 'Agent Loop 为什么需要 Observation？',
+    hint: '如果模型看不到工具真实执行结果，它就无法判断动作是否成功，也无法基于新信息调整下一步。'
+  },
+  {
+    question: '一个只有单次 LLM 调用的文本总结功能，需要做成 Agent 吗？',
+    hint: '通常不需要。优先选择能够完成任务的最简单方案。'
+  }
+];
+
+const readings = [
+  {
+    tag: '主教材',
+    title: 'Hugging Face Agents Course · Introduction to Agents',
+    href: 'https://huggingface.co/learn/agents-course/unit1/introduction',
+    note: '适合从 Agent、Tool 到 Thought / Action / Observation 建立完整入门心智模型。'
+  },
+  {
+    tag: '工程视角',
+    title: 'Anthropic · Building Effective Agents',
+    href: 'https://www.anthropic.com/engineering/building-effective-agents',
+    note: '重点看 Workflow 与 Agent 的区别，以及为什么应优先选择简单、可组合的方案。'
+  },
+  {
+    tag: '实践指南',
+    title: 'OpenAI · A Practical Guide to Building Agents',
+    href: 'https://openai.com/business/guides-and-resources/a-practical-guide-to-building-ai-agents/',
+    note: '重点看 Model、Tools、Instructions 三个基础组件和 Agent 的适用场景。'
+  }
+];
+
+const minimalAgent = `context = [user_goal]
+
+while not finished(context):
+    decision = model.decide(
+        instructions=instructions,
+        context=context,
+        tools=tools
+    )
+
+    if decision.type == "tool_call":
+        observation = tools.run(decision)
+        context.append(observation)
+    else:
+        return decision.answer`;
+---
+
+<LearningArticleLayout
+  title="什么是 AI Agent？"
+  description="从普通 LLM、Chatbot 和 Workflow 一路推导到 Agent，理解 Agent Loop、工具调用以及模型为什么开始具备执行任务的能力。"
+  seriesLabel="AGENT LEARNING · 01"
+  seriesHref="/learning/"
+  subtitle="先不学框架，也不急着写复杂代码。第一篇只解决一个问题：Agent 到底是什么，它和普通 LLM 应用究竟差在哪里？"
+  date="2026-08-12"
+  readingTime="约 15 分钟"
+  level="基础认知"
+  heroImage="/assets/learning-agent-introduction.svg"
+  heroAlt="Agent 的目标、模型、工具和观察循环笔记示意图"
+  tocItems={tocItems}
+  goals={goals}
+  reviewItems={reviewItems}
+  selfCheckItems={selfCheckItems}
+  readings={readings}
+  next={{
+    label: 'NEXT · 02',
+    title: 'Agent Framework：框架到底帮我们做了什么？',
+    href: '/learning/',
+    note: '下一篇拆开 Model、Tool、State、Workflow 与 Orchestration。'
+  }}
+>
+  <section id="from-llm" class="article-section">
+    <p class="article-section-label">01 · 从一个任务开始</p>
+    <h2>普通 LLM 会回答问题，但它不会天然替你完成任务</h2>
+    <p>理解 Agent 最好的方式，不是先背定义，而是先看普通 LLM 的边界。</p>
+    <p>假设你对一个普通大语言模型说：<strong>“帮我看看明天北京会不会下雨，如果会下雨就提醒我带伞。”</strong></p>
+
+    <div class="article-compare">
+      <div>
+        <h3>只有 LLM</h3>
+        <ul>
+          <li>接收你的文字输入</li>
+          <li>根据上下文生成文字</li>
+          <li>如果没有外部数据，它不知道真实的明日天气</li>
+          <li>一次生成结束后，任务通常也就结束了</li>
+        </ul>
+      </div>
+      <div class="focus">
+        <h3>如果是 Agent</h3>
+        <ul>
+          <li>先理解你的目标</li>
+          <li>判断需要获取天气数据</li>
+          <li>调用 Weather Tool</li>
+          <li>读取返回结果，再决定如何回答</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="article-think"><strong>思考一下</strong>真正发生变化的地方，是模型“知道更多”了吗，还是模型开始能够参与任务执行了？</div>
+
+    <p>Agent 的关键变化在第二点：<strong>模型不再只负责生成最终文本，它开始参与“下一步做什么”的决策。</strong></p>
+  </section>
+
+  <section id="definition" class="article-section">
+    <p class="article-section-label">02 · 给 Agent 一个可用的定义</p>
+    <h2>Agent 是一个围绕目标持续决策和行动的系统</h2>
+    <p>不同团队对 Agent 的边界会有不同定义，但几个核心特征高度一致：它有一个目标，模型能够参与决策，系统能够使用工具与外部环境交互，并根据执行结果继续调整后续动作。</p>
+
+    <div class="article-key-idea">
+      <strong>本文采用的定义</strong>
+      Agent 是一个以模型为决策核心，能够围绕目标自主决定下一步行动、调用工具、观察结果并持续执行，直到任务完成或触发停止条件的系统。
+    </div>
+
+    <p>这里有三个词特别重要：</p>
+
+    <div class="article-steps">
+      <div class="article-step">
+        <span>01</span>
+        <div><h3>Goal · 目标</h3><p>Agent 不是漫无目的地生成内容，它始终需要知道自己正在完成什么。</p></div>
+      </div>
+      <div class="article-step">
+        <span>02</span>
+        <div><h3>Decision · 决策</h3><p>模型不仅输出答案，还会判断下一步应该调用工具、继续获取信息，还是结束任务。</p></div>
+      </div>
+      <div class="article-step">
+        <span>03</span>
+        <div><h3>Action · 行动</h3><p>Agent 能通过 API、数据库、搜索、代码执行等工具真正影响或读取外部世界。</p></div>
+      </div>
+    </div>
+
+    <div class="article-note"><strong>先不要把 Agent 理解成“AI 机器人”</strong>在软件工程里，它更多是一种运行模式：让模型拥有一定的任务控制权，并把模型放进一个可持续执行的循环里。</div>
+  </section>
+
+  <section id="boundaries" class="article-section">
+    <p class="article-section-label">03 · 把几个容易混淆的概念分开</p>
+    <h2>LLM、Chatbot、Workflow、Agent，不是一回事</h2>
+    <p>很多 Agent 概念之所以显得混乱，是因为大家经常把“用了 LLM”“能多轮聊天”“接了工具”“会执行流程”混在一起。可以先用“谁控制下一步”这个问题来区分。</p>
+
+    <div class="article-steps">
+      <div class="article-step">
+        <span>LLM</span>
+        <div><h3>输入 → 生成</h3><p>模型根据输入预测并生成输出。它是 Agent 的能力基础，但单独的模型不是完整 Agent。</p></div>
+      </div>
+      <div class="article-step">
+        <span>CHAT</span>
+        <div><h3>多轮对话</h3><p>Chatbot 保存会话上下文，让用户和模型连续交流，但流程仍可能只是“问一句、答一句”。</p></div>
+      </div>
+      <div class="article-step">
+        <span>FLOW</span>
+        <div><h3>预先设计好的路径</h3><p>Workflow 可以包含多个 LLM 和 Tool，但主要执行路径通常由开发者提前通过代码编排。</p></div>
+      </div>
+      <div class="article-step">
+        <span>AGENT</span>
+        <div><h3>运行时动态决定路径</h3><p>模型根据当前目标和环境反馈决定接下来使用什么工具、执行几步，以及什么时候结束。</p></div>
+      </div>
+    </div>
+
+    <div class="article-compare">
+      <div>
+        <h3>Workflow</h3>
+        <ul>
+          <li>Step A → Step B → Step C</li>
+          <li>路径主要由代码预先定义</li>
+          <li>行为更稳定、容易预测</li>
+          <li>适合规则明确、步骤固定的任务</li>
+        </ul>
+      </div>
+      <div class="focus">
+        <h3>Agent</h3>
+        <ul>
+          <li>Goal → Decide → Action → Observe → …</li>
+          <li>模型运行时动态选择下一步</li>
+          <li>灵活性更高，但不确定性也更高</li>
+          <li>适合开放、多步骤、难以提前写死路径的任务</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="article-key-idea"><strong>最值得记住的边界</strong>有没有使用 LLM 或 Tool 不是关键；<strong>任务执行路径主要由谁决定</strong>，才是理解 Workflow 与 Agent 的核心。</div>
+  </section>
+
+  <section id="loop" class="article-section">
+    <p class="article-section-label">04 · Agent Loop</p>
+    <h2>Agent 为什么总是在“循环”里工作？</h2>
+    <p>一次模型调用通常只能基于当前信息做一次判断。但真实任务往往需要：先获取信息，看到结果，再决定下一步。</p>
+    <p>因此很多 Agent 都可以抽象成一个持续循环。Hugging Face 的 Agents Course 用 Thought / Action / Observation 描述这一过程。为了避免把“Thought”误解成必须暴露模型内部推理，这里把它理解为更工程化的 <strong>Decision：根据当前上下文决定下一步。</strong></p>
+
+    <figure class="article-flow">
+      <div class="article-flow-row">
+        <div class="article-flow-node">Goal</div>
+        <span class="article-flow-arrow">→</span>
+        <div class="article-flow-node">Decide</div>
+        <span class="article-flow-arrow">→</span>
+        <div class="article-flow-node">Act</div>
+        <span class="article-flow-arrow">→</span>
+        <div class="article-flow-node">Observe</div>
+        <span class="article-flow-arrow">↺</span>
+        <div class="article-flow-node">Decide</div>
+      </div>
+      <figcaption class="article-caption">图 1：Agent 的最小执行循环。直到完成目标、需要人工介入、失败或达到停止条件。</figcaption>
+    </figure>
+
+    <p>继续看天气例子：</p>
+
+    <div class="article-steps">
+      <div class="article-step">
+        <span>01</span>
+        <div><h3>收到目标</h3><p>“判断明天北京是否下雨，并告诉我是否需要带伞。”</p></div>
+      </div>
+      <div class="article-step">
+        <span>02</span>
+        <div><h3>决定获取外部信息</h3><p>当前上下文没有可靠的实时天气数据，因此选择调用天气工具。</p></div>
+      </div>
+      <div class="article-step">
+        <span>03</span>
+        <div><h3>执行 Tool</h3><p>系统真正调用 Weather API，而不是让模型凭记忆猜天气。</p></div>
+      </div>
+      <div class="article-step">
+        <span>04</span>
+        <div><h3>获得 Observation</h3><p>工具返回降雨概率、天气状况等真实结果，并被加入当前上下文。</p></div>
+      </div>
+      <div class="article-step">
+        <span>05</span>
+        <div><h3>再次决策</h3><p>模型基于新的 Observation 判断信息已经足够，于是结束循环并生成答案。</p></div>
+      </div>
+    </div>
+
+    <div class="article-note"><strong>Observation 很重要</strong>Agent 不是“模型连续想很多次”。真正让循环有价值的是：每一次行动都能从外部环境获得新的、可验证的反馈。</div>
+  </section>
+
+  <section id="components" class="article-section">
+    <p class="article-section-label">05 · 最小组成</p>
+    <h2>一个 Agent 至少需要哪些东西？</h2>
+    <p>OpenAI 的实践指南把 Agent 的基础设计概括为三个核心组件：<strong>Model、Tools、Instructions</strong>。在真正运行时，我们还需要一个执行层保存上下文 / 状态，并驱动循环。</p>
+
+    <div class="article-compare">
+      <div class="focus">
+        <h3>Model</h3>
+        <ul>
+          <li>理解当前任务和上下文</li>
+          <li>判断下一步动作</li>
+          <li>选择 Tool 与参数</li>
+          <li>决定何时输出最终结果</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Instructions</h3>
+        <ul>
+          <li>定义角色和目标</li>
+          <li>说明规则与边界</li>
+          <li>约束允许和禁止的行为</li>
+          <li>告诉 Agent 什么情况下需要人工确认</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="article-compare">
+      <div>
+        <h3>Tools</h3>
+        <ul>
+          <li>搜索和读取外部数据</li>
+          <li>查询数据库</li>
+          <li>执行代码或调用业务 API</li>
+          <li>发送消息、修改记录等真实动作</li>
+        </ul>
+      </div>
+      <div class="focus">
+        <h3>Context / State</h3>
+        <ul>
+          <li>保存用户目标</li>
+          <li>保存历史 Tool Calls</li>
+          <li>保存 Observations</li>
+          <li>让下一轮决策知道“之前发生了什么”</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="article-key-idea"><strong>可以先记成一个公式</strong>Agent ≈ Model + Instructions + Tools + State + Loop。后面的 Agent Framework，本质上就在帮我们更方便地管理这些东西。</div>
+
+    <div class="article-note"><strong>Memory 暂时不要急着加进定义</strong>长期记忆是 Agent 很重要的增强能力，但并不是理解“最小 Agent”必须具备的第一块拼图。后面会单独学习 Agent Memory。</div>
+  </section>
+
+  <section id="when-to-use" class="article-section">
+    <p class="article-section-label">06 · 不是什么都需要 Agent</p>
+    <h2>能用简单方案解决，就不要为了“Agent”而 Agent</h2>
+    <p>Agent 的自主决策能力很有吸引力，但它也会带来更多模型调用、更高延迟、更高成本，以及长链路中错误逐步累积的风险。因此工程上更合理的原则是：<strong>先使用能够解决问题的最简单方案。</strong></p>
+
+    <div class="article-steps">
+      <div class="article-step">
+        <span>01</span>
+        <div><h3>固定逻辑 → 普通代码</h3><p>例如金额计算、字段校验、明确规则判断。确定性代码更快、更便宜，也更容易测试。</p></div>
+      </div>
+      <div class="article-step">
+        <span>02</span>
+        <div><h3>单次生成 → LLM Call</h3><p>例如总结一段文本、改写文案、分类一条输入，通常没有必要引入 Agent Loop。</p></div>
+      </div>
+      <div class="article-step">
+        <span>03</span>
+        <div><h3>步骤固定 → Workflow</h3><p>例如“提取 → 审核 → 生成 → 保存”，流程已知时，显式编排通常更稳定。</p></div>
+      </div>
+      <div class="article-step">
+        <span>04</span>
+        <div><h3>路径难以预先确定 → Agent</h3><p>当任务需要多轮搜索、动态选择工具、根据中间结果改变计划时，Agent 的价值才真正出现。</p></div>
+      </div>
+    </div>
+
+    <div class="article-think"><strong>判断题</strong>“把一份 PDF 总结成 300 字”需要 Agent 吗？“调查一个线上故障、查看日志、搜索代码、尝试修复并运行测试”呢？两者真正的差别在哪里？</div>
+  </section>
+
+  <section id="minimal-agent" class="article-section">
+    <p class="article-section-label">07 · 用伪代码收束</p>
+    <h2>把所有概念压缩成一个最小 Agent</h2>
+    <p>现在暂时忘掉 LangGraph、OpenAI Agents SDK、smolagents。一个最小 Agent 的运行机制可以粗略写成下面这样：</p>
+
+    <pre class="article-code" data-language="Pseudo Python"><code>{minimalAgent}</code></pre>
+
+    <p>这段代码最值得看的不是语法，而是循环中的四件事：</p>
+
+    <div class="article-steps">
+      <div class="article-step"><span>1</span><div><h3>把 Goal 和 Context 给模型</h3><p>让模型知道自己正在解决什么，以及前面发生过什么。</p></div></div>
+      <div class="article-step"><span>2</span><div><h3>模型决定下一步</h3><p>可能调用 Tool，也可能认为任务已经完成。</p></div></div>
+      <div class="article-step"><span>3</span><div><h3>真实执行 Tool</h3><p>由程序执行外部动作，并把结果作为 Observation 保存。</p></div></div>
+      <div class="article-step"><span>4</span><div><h3>继续循环或结束</h3><p>新的 Observation 进入 Context，下一轮重新决策，直到满足退出条件。</p></div></div>
+    </div>
+
+    <div class="article-key-idea"><strong>到这里，你已经抓住 Agent 的骨架了</strong>后面无论学习 Function Calling、ReAct、Planning、Memory、LangGraph 还是 Multi-Agent，本质上都是在增强、组织或约束这套执行机制。</div>
+  </section>
+</LearningArticleLayout>
