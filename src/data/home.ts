@@ -22,14 +22,13 @@ export type Project = {
   tags: string[];
 };
 
+export type Note = {
+  title: string;
+  date: string;
+  href: string;
+};
+
 export const articles: Article[] = [
-  {
-    title: '02｜从 Token 到 Vector：一句话到底是怎么被模型变成向量的？',
-    excerpt: '用「小明打了小红」从 Token、Parameter、Embedding 一路走到 Attention、Pooling 和 RAG Chunk Vector，把最容易混淆的几个概念真正串起来。',
-    date: '2026-08-12',
-    href: '/articles/vector-database-02',
-    cover: '/assets/article-vector-db.svg'
-  },
   {
     title: '01｜向量数据库究竟在解决什么问题？',
     excerpt: '先不急着看 HNSW。先从 SQL 和关键词检索讲起，看看什么时候真的需要“按语义找东西”。',
@@ -101,9 +100,30 @@ export const projects: Project[] = [
   }
 ];
 
-export const notes = [
-  ['LLM 的上下文长度与注意力机制小记', '08-11'],
-  ['Temperature 调高以后，模型到底变了什么？', '08-09'],
-  ['向量数据库选型笔记（Milvus / Qdrant）', '08-06'],
-  ['在 macOS / Windows 上管理多个开发环境', '08-02']
-] as const;
+export const notes: Note[] = [
+  {
+    title: '「小明打了小红」是怎么变成一个向量的？',
+    date: '08-12',
+    href: '/notes/xiaoming-sentence-vector'
+  },
+  {
+    title: 'LLM 的上下文长度与注意力机制小记',
+    date: '08-11',
+    href: '/articles/'
+  },
+  {
+    title: 'Temperature 调高以后，模型到底变了什么？',
+    date: '08-09',
+    href: '/articles/'
+  },
+  {
+    title: '向量数据库选型笔记（Milvus / Qdrant）',
+    date: '08-06',
+    href: '/articles/'
+  },
+  {
+    title: '在 macOS / Windows 上管理多个开发环境',
+    date: '08-02',
+    href: '/articles/'
+  }
+];
