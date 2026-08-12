@@ -24,6 +24,13 @@ export type Project = {
 
 export const articles: Article[] = [
   {
+    title: '02｜从 Token 到 Vector：一句话到底是怎么被模型变成向量的？',
+    excerpt: '用「小明打了小红」从 Token、Parameter、Embedding 一路走到 Attention、Pooling 和 RAG Chunk Vector，把最容易混淆的几个概念真正串起来。',
+    date: '2026-08-12',
+    href: '/articles/vector-database-02',
+    cover: '/assets/article-vector-db.svg'
+  },
+  {
     title: '01｜向量数据库究竟在解决什么问题？',
     excerpt: '先不急着看 HNSW。先从 SQL 和关键词检索讲起，看看什么时候真的需要“按语义找东西”。',
     date: '2026-08-11',
