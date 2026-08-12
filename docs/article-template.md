@@ -1,175 +1,410 @@
-# 通用技术学习文章模板
+# 技术学习文章：统一视觉，不统一结构
 
-项目已新增统一学习文章模板，用于 Agent、RAG、Vector Database、Java 等后续学习内容。
+这套文章系统不是“所有文章都必须照着同一个目录写”的固定模板。
 
-## 文件位置
+它真正要统一的是：
 
-- `src/layouts/LearningArticleLayout.astro`：文章统一布局和固定模块。
-- `src/styles/article.css`：文章页统一视觉样式。
-- `src/components/ArticleToc.astro`：复用现有文章目录组件。
-- `src/pages/articles/template.astro`：可访问的模板预览页，也是最直接的复制示例。
+> **Design System + Article Components + Reading Experience**
 
-## 页面固定骨架
+而不是：
+
+> **固定章节顺序 + 固定模块数量 + 固定叙事方式**
+
+一句话原则：
+
+> **统一 Design System，不统一 Article Structure；组件复用，叙事自由。**
+
+---
+
+## 1. 为什么不能把模板当成硬约束
+
+不同类型的技术文章，最适合的理解路径并不一样。
+
+如果为了“套模板”强行加入：
+
+- 本章目标
+- 对比卡
+- 思考一下
+- 流程图
+- 代码块
+- 本章复盘
+- 自我检查
+- 延伸阅读
+
+反而会让文章看起来像课程后台或标准化教材，失去个人技术笔记应该有的自然节奏。
+
+因此，`LearningArticleLayout.astro` 的定位是：
+
+> **文章视觉骨架 + 可选内容组件容器**
+
+而不是固定文章结构。
+
+---
+
+## 2. 必须统一的部分
+
+以下内容应该保持统一，因为它们决定了网站是否仍然属于“xuan.z 的个人笔记”。
+
+### 2.1 视觉系统
+
+必须统一：
+
+- 暖米白纸张背景
+- 鼠尾草绿主强调色
+- Serif / Sans / Kai 字体分工
+- 正文阅读宽度
+- 章节留白
+- 边框与圆角
+- 代码块视觉
+- 图解视觉
+- 链接与导航视觉
+- 移动端阅读体验
+
+### 2.2 页面级基础结构
+
+大部分学习文章建议保留：
 
 ```text
 Site Header
 ↓
-Back Link
+Back / Breadcrumb
 ↓
 Article Hero
-  Series / Chapter
-  Title
-  Subtitle
-  Metadata
-  Illustration
-↓
-TOC + Learning Goals
 ↓
 Article Body
-  Section
-  Think / Note
-  Comparison
-  Diagram / Flow
-  Code
-  Key Idea
-  Steps
-  ...
-↓
-Chapter Review + Self Check
-↓
-Further Reading
 ↓
 Previous / Next
 ```
 
-## Layout Props
+其中 Hero 也可以根据文章类型适度简化。
 
-`LearningArticleLayout.astro` 支持：
+---
 
-- `title`
-- `description`
-- `seriesLabel`
-- `seriesHref`
-- `subtitle`
-- `date`
-- `readingTime`
-- `level`
-- `backHref`
-- `backLabel`
-- `heroImage`
-- `heroAlt`
-- `tocItems`
-- `goals`
-- `reviewItems`
-- `selfCheckItems`
-- `readings`
-- `previous`
-- `next`
+## 3. 按需选择的模块
 
-如果不传 `heroImage`，模板会自动使用项目内置的 CSS 笔记本插画占位，因此新文章可以先写内容，后续再替换专属插图。
+以下模块都是“工具箱”，不是必选项：
 
-## 正文可复用 class
+- Table of Contents
+- Learning Goals
+- Think / 思考一下
+- Note / 补充说明
+- Key Idea / 核心结论
+- Comparison / 对比
+- Process / Flow
+- Architecture Diagram
+- Code Block
+- Step / 步骤
+- Definition / 概念定义
+- Chapter Review
+- Self Check
+- Further Reading
 
-### 普通章节
+选择原则：
 
-```astro
-<section id="section-id" class="article-section">
-  <p class="article-section-label">01 · 小节标签</p>
-  <h2>章节标题</h2>
-  <p>正文……</p>
-</section>
+> **这个模块是否真的降低理解成本？**
+
+如果答案是否定的，就不要加。
+
+---
+
+## 4. 先确定文章类型，再确定结构
+
+### 4.1 概念型文章
+
+适合：
+
+- 什么是 Agent
+- 什么是 RAG
+- 什么是 Embedding
+- 什么是 Context Engineering
+
+推荐结构：
+
+```text
+真实问题
+↓
+为什么原来的方式不够
+↓
+核心概念 / 定义
+↓
+和相近概念的边界
+↓
+核心运行机制
+↓
+什么时候使用
+↓
+最小示例 / 最小模型
+↓
+总结
 ```
 
-### 思考卡
+优先组件：
 
-```astro
-<div class="article-think">
-  <strong>思考一下</strong>
-  问题……
-</div>
+- Comparison
+- Diagram / Flow
+- Key Idea
+- Definition
+
+不一定需要：
+
+- 大量代码
+- 多个步骤卡
+- Learning Goals
+
+---
+
+### 4.2 原理型文章
+
+适合：
+
+- Embedding 怎么工作
+- 向量相似度
+- HNSW
+- Transformer Attention
+
+推荐结构：
+
+```text
+问题
+↓
+直觉解释
+↓
+原理推导
+↓
+图解
+↓
+必要数学
+↓
+最小实验
+↓
+实验结果
+↓
+回到核心结论
 ```
 
-### 补充说明
+优先组件：
 
-```astro
-<div class="article-note">
-  <strong>补充说明</strong>
-  内容……
-</div>
+- Diagram
+- Formula / 推导
+- Code
+- Experiment Result
+- Note
+
+---
+
+### 4.3 工程实践型文章
+
+适合：
+
+- 实现一个 Tool
+- 构建一个最小 Agent
+- 接入 MCP
+- 构建 RAG Pipeline
+
+推荐结构：
+
+```text
+要做什么
+↓
+最终效果
+↓
+项目结构
+↓
+Step 1
+↓
+Code
+↓
+Step 2
+↓
+Code
+↓
+运行结果
+↓
+踩坑 / Debug
+↓
+完整实现
 ```
 
-### 核心结论
+优先组件：
 
-```astro
-<div class="article-key-idea">
-  <strong>核心结论</strong>
-  内容……
-</div>
+- Steps
+- Code Block
+- Result
+- Pitfall / Note
+
+---
+
+### 4.4 源码阅读型文章
+
+适合：
+
+- LangGraph 源码
+- Agent Framework 调用链
+- Java 框架源码
+
+推荐结构：
+
+```text
+先看整体架构
+↓
+调用入口
+↓
+主调用链
+↓
+核心类 / 核心方法
+↓
+数据如何流动
+↓
+关键源码
+↓
+断点 / 调试位置
+↓
+总结
 ```
 
-### 对比模块
+优先组件：
 
-```astro
-<div class="article-compare">
-  <div>
-    <h3>A</h3>
-    <ul><li>...</li></ul>
-  </div>
-  <div class="focus">
-    <h3>B</h3>
-    <ul><li>...</li></ul>
-  </div>
-</div>
+- Architecture Diagram
+- Call Chain
+- Code
+- Source Map
+
+---
+
+### 4.5 对比 / 选型型文章
+
+适合：
+
+- Workflow vs Agent
+- LangGraph vs OpenAI Agents SDK
+- Milvus vs Qdrant
+
+推荐结构：
+
+```text
+为什么要比较
+↓
+比较维度
+↓
+核心差异
+↓
+典型场景
+↓
+Trade-off
+↓
+选择建议
 ```
 
-### 流程图
+优先组件：
 
-```astro
-<figure class="article-flow">
-  <div class="article-flow-row">
-    <div class="article-flow-node">A</div>
-    <span class="article-flow-arrow">→</span>
-    <div class="article-flow-node">B</div>
-  </div>
-  <figcaption class="article-caption">图：说明</figcaption>
-</figure>
+- Comparison
+- Table
+- Scenario
+- Key Idea
+
+---
+
+## 5. 写文章前先回答一个问题
+
+在决定目录前，先写一句：
+
+> **读者现在不理解什么？我要沿着什么路径让他真正理解？**
+
+再反推章节顺序。
+
+不要先看模板里有什么模块，再想办法把内容填进去。
+
+---
+
+## 6. 推荐的叙事原则
+
+技术文章优先使用：
+
+```text
+问题 → 直觉 → 边界 → 原理 → 示例 → 结论
 ```
 
-### 代码块
+但不是每篇都必须完整出现。
 
-```astro
-<pre class="article-code" data-language="Java"><code>{code}</code></pre>
-```
+真正重要的是：
 
-### 步骤
+1. 每一节都回答一个明确问题。
+2. 下一节应该自然来自上一节留下的问题。
+3. 图解只在关系、流程、结构难以用一句话说清楚时出现。
+4. 代码只在它能验证观点或帮助迁移时出现。
+5. 卡片只用于真正需要强调的内容。
+6. 不要为了页面“丰富”而增加模块。
 
-```astro
-<div class="article-steps">
-  <div class="article-step">
-    <span>01</span>
-    <div>
-      <h3>步骤标题</h3>
-      <p>步骤说明</p>
-    </div>
-  </div>
-</div>
-```
+---
 
-## 使用原则
+## 7. 页面密度原则
 
-1. 新学习文章优先使用 `LearningArticleLayout`，不要在每个页面重新复制整套 Article CSS。
-2. 正文以开放排版为主，不要把所有段落卡片化。
-3. 图解只在能降低理解成本时出现。
-4. 一篇文章不需要使用所有组件，按内容需要选择。
-5. Hero、目录、学习目标、复盘、上下篇导航是推荐的稳定骨架。
-6. 风格始终遵循 `docs/ui-style-guide.md`：Warm Paper · Digital Garden · Notebook Editorial。
+一篇正式文章不应该像“模板组件展示页”。
 
-## 预览
+如果同一篇文章里连续出现：
 
-本地开发后访问：
+- 目标卡
+- 对比卡
+- 思考卡
+- 流程卡
+- 代码卡
+- 步骤卡
+- 复盘卡
+- 自检卡
 
-`/articles/template/`
+需要重新检查：是不是在展示 UI，而不是在讲知识。
 
-GitHub Pages 部署后对应：
+推荐：
 
-`https://1264585648.github.io/my_blog/articles/template/`
+> **正文是主体，组件负责关键节点。**
+
+---
+
+## 8. 对 `LearningArticleLayout` 的使用方式
+
+文件：
+
+- `src/layouts/LearningArticleLayout.astro`
+- `src/styles/article.css`
+- `src/components/ArticleToc.astro`
+
+它提供统一视觉能力，但 Props 均应按需使用。
+
+例如：
+
+- 不需要目录：不传 `tocItems`
+- 不需要目标：不传 `goals`
+- 不需要自检：不传 `selfCheckItems`
+- 不需要延伸阅读：不传 `readings`
+- 不需要复盘卡：不传 `reviewItems`
+
+正文内部的 `.article-think`、`.article-compare`、`.article-flow`、`.article-code`、`.article-steps` 等也全部按需使用。
+
+---
+
+## 9. 正式文章的判断标准
+
+完成一篇文章后检查：
+
+- [ ] 文章结构是由知识本身决定，而不是由模板决定的吗？
+- [ ] 每一个组件都有明确教学价值吗？
+- [ ] 删除某张卡片后，理解是否会明显变差？如果不会，考虑删除。
+- [ ] 正文是否仍然是页面主体？
+- [ ] 是否有自然的“为什么 → 所以 → 接下来”的叙事链？
+- [ ] 是否避免把文章写成组件 Demo？
+- [ ] 是否仍然保持统一的 Warm Paper / Digital Garden 视觉语言？
+- [ ] 手机端是否可以自然连续阅读？
+
+---
+
+## 10. 最终原则
+
+以后新增文章时遵循：
+
+> **先设计理解路径，再选择文章组件。**
+
+> **统一视觉语言，不统一内容结构。**
+
+> **组件复用，叙事自由。**
+
+> **阅读体验优先于模板完整度。**
