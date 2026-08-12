@@ -16,9 +16,10 @@ export const vectorDatabaseSeries: VectorDatabaseSeriesArticle[] = [
   },
   {
     index: '02',
-    title: 'Vector、Embedding 与相似度：机器怎样表示“相近”？',
-    focus: '向量、维度、Embedding、Cosine / Dot Product / Euclidean Distance。',
-    status: 'planned'
+    title: '从 Token 到 Vector：一句话到底是怎么被模型变成向量的？',
+    focus: '从 Token、Parameter、Embedding 到 Attention、Pooling，用「小明打了小红」走完整个文本向量化过程。',
+    href: '/articles/vector-database-02',
+    status: 'published'
   },
   {
     index: '03',
