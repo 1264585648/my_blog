@@ -24,11 +24,11 @@ import { withBase } from '../utils/paths';
       <div class="notes-tape"></div>
       <h3>碎片笔记</h3>
       <ul>
-        {notes.map(([title, date]) => (
-          <li><a href={withBase('/articles/')}><span>{title}</span><time>{date}</time></a></li>
+        {notes.map((note) => (
+          <li><a href={withBase(note.href)}><span>{note.title}</span><time>{note.date}</time></a></li>
         ))}
       </ul>
-      <a class="notes-more" href={withBase('/articles/')}>查看全部笔记 →</a>
+      <a class="notes-more" href={withBase('/notes/')}>查看全部笔记 →</a>
     </aside>
   </div>
 </section>
