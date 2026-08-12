@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 330" role="img" aria-labelledby="title desc">
+  <title id="title">Agent 学习笔记插画</title>
+  <desc id="desc">以纸张、工具卡片和循环箭头表现 Agent 的目标、模型、工具与观察循环。</desc>
+  <rect width="520" height="330" rx="24" fill="#f4efe4"/>
+  <path d="M28 48c72-25 137-18 205-3 80 18 163 10 259-15" fill="none" stroke="#e3dac8" stroke-width="2" opacity=".75"/>
+  <g transform="translate(72 34)">
+    <rect x="48" y="12" width="286" height="246" rx="16" fill="#fffdf8" stroke="#d8cebb" stroke-width="2"/>
+    <path d="M68 12v246" stroke="#c9bca7" stroke-width="2" stroke-dasharray="5 7"/>
+    <g fill="none" stroke="#776f61" stroke-width="3">
+      <path d="M55 42h-18c-13 0-13 18 0 18h18"/>
+      <path d="M55 82h-18c-13 0-13 18 0 18h18"/>
+      <path d="M55 122h-18c-13 0-13 18 0 18h18"/>
+      <path d="M55 162h-18c-13 0-13 18 0 18h18"/>
+      <path d="M55 202h-18c-13 0-13 18 0 18h18"/>
+    </g>
+    <rect x="94" y="35" width="96" height="12" rx="6" fill="#dce5d5"/>
+    <rect x="94" y="59" width="183" height="7" rx="3.5" fill="#e7dfd0"/>
+    <rect x="94" y="74" width="152" height="7" rx="3.5" fill="#eee7db"/>
+
+    <g font-family="Inter, Arial, sans-serif" text-anchor="middle">
+      <rect x="106" y="108" width="72" height="42" rx="10" fill="#eef3e9" stroke="#c8d6bc"/>
+      <text x="142" y="133" font-size="13" fill="#536447">Goal</text>
+      <rect x="224" y="108" width="72" height="42" rx="10" fill="#f5ead8" stroke="#e5d2b2"/>
+      <text x="260" y="133" font-size="13" fill="#6c6254">Model</text>
+      <rect x="224" y="184" width="72" height="42" rx="10" fill="#eaf2f6" stroke="#cadde7"/>
+      <text x="260" y="209" font-size="13" fill="#5d6d75">Tool</text>
+      <rect x="106" y="184" width="72" height="42" rx="10" fill="#eee9f2" stroke="#d8cee1"/>
+      <text x="142" y="209" font-size="13" fill="#675f6e">Observe</text>
+    </g>
+
+    <g fill="none" stroke="#718164" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M180 129h36"/>
+      <path d="m211 124 6 5-6 5"/>
+      <path d="M260 153v23"/>
+      <path d="m255 171 5 6 5-6"/>
+      <path d="M216 205h-31"/>
+      <path d="m190 200-6 5 6 5"/>
+      <path d="M142 176v-18c0-12 8-21 21-21h23"/>
+      <path d="m181 132 6 5-6 5"/>
+    </g>
+    <text x="201" y="244" font-family="KaiTi, STKaiti, serif" font-size="15" fill="#6c695e" text-anchor="middle">Think → Act → Observe → …</text>
+  </g>
+
+  <g transform="translate(353 82) rotate(6)">
+    <rect width="118" height="82" rx="10" fill="#faf4e8" stroke="#d9cbb3"/>
+    <text x="18" y="28" font-family="Inter, Arial, sans-serif" font-size="13" fill="#536447">TOOLS</text>
+    <path d="M18 43h78M18 55h62M18 67h72" stroke="#cdbfa9" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <g transform="translate(366 198) rotate(-5)">
+    <rect width="102" height="66" rx="9" fill="#eef3e9" stroke="#cad5c1"/>
+    <text x="16" y="26" font-family="Inter, Arial, sans-serif" font-size="12" fill="#536447">INSTRUCTIONS</text>
+    <path d="M16 41h68M16 52h52" stroke="#b9c6b0" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <path d="M437 265c-2 20-12 35-31 46 4-17 14-32 31-46Z" fill="#899b7a" opacity=".7"/>
+  <path d="M439 268c15 7 25 19 28 35-16-2-27-13-28-35Z" fill="#718164" opacity=".82"/>
+  <path d="M437 267c1 18 0 33-4 49" fill="none" stroke="#718164" stroke-width="2"/>
+</svg>
