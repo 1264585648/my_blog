@@ -1,0 +1,142 @@
+---
+import LearningArticleLayout from '../../layouts/LearningArticleLayout.astro';
+
+const tocItems = [
+  { id: 'start', label: '页面目标', hint: '明确文章定位与读者预期' },
+  { id: 'structure', label: '文章结构', hint: '对比说明，理解信息层级' },
+  { id: 'visual', label: '图文模块', hint: '用图解帮助建立心智模型' },
+  { id: 'code', label: '代码与图解', hint: '代码展示与可视化表达' },
+  { id: 'review', label: '本章复盘', hint: '提炼关键要点与收获' },
+  { id: 'self-check', label: '自我检查', hint: '检验理解，查漏补缺' }
+];
+
+const goals = [
+  '理解并掌握一篇学习型文章的通用结构。',
+  '学会在正文、图解、代码和思考模块之间建立阅读节奏。',
+  '能够直接复用本模板创建 Agent、RAG、数据库或 Java 学习文章。',
+  '完成复盘和自我检查，让文章不仅能读，还能帮助学习。'
+];
+
+const reviewItems = [
+  { title: '目标先行', text: '先说明这一篇解决什么问题，再展开知识，而不是从定义堆砌开始。' },
+  { title: '理解优先', text: '通过对比、图解、示例和思考题，让读者逐步建立自己的心智模型。' },
+  { title: '收束闭环', text: '用复盘、自检和下一篇导航，把单篇文章放回完整学习路径中。' }
+];
+
+const selfCheckItems = [
+  { question: '我是否明确了文章的目标读者？', hint: '检查标题、副标题和本章目标是否能让读者快速知道为什么要读。' },
+  { question: '我是否让图文模块真正降低了理解成本？', hint: '删除纯装饰图，优先保留能解释关系、流程、差异和结构的图。' },
+  { question: '读者读完后能否用自己的话复述核心结论？', hint: '如果不能，说明正文或复盘还需要继续压缩和重构。' }
+];
+
+const readings = [
+  { tag: '写作方法', title: '如何写出清晰的技术文章', href: '#', note: '从读者问题而不是知识目录开始组织内容。' },
+  { tag: '内容结构', title: '技术内容的结构化表达', href: '#', note: '把定义、推导、示例和结论拆成稳定节奏。' },
+  { tag: '图解思维', title: '用图建立技术心智模型', href: '#', note: '优先画关系和过程，而不是做装饰。' }
+];
+
+const codeSample = `type Result<T> =
+  | { ok: true; data: T }
+  | { ok: false; error: string };
+
+function safely<T>(fn: () => T): Result<T> {
+  try {
+    return { ok: true, data: fn() };
+  } catch (error) {
+    return { ok: false, error: String(error) };
+  }
+}`;
+---
+
+<LearningArticleLayout
+  title="通用技术学习文章模板"
+  description="一个可复用的技术学习内容页结构，用统一的阅读节奏承载 Agent、RAG、向量数据库、Java 等不同主题。"
+  seriesLabel="LEARN · TEMPLATE 01"
+  subtitle="这是一个可复用的技术学习文章结构。后续只需要替换知识内容，不需要重新设计页面。"
+  date="2026-08-12"
+  readingTime="约 12 分钟"
+  level="模板示例"
+  tocItems={tocItems}
+  goals={goals}
+  reviewItems={reviewItems}
+  selfCheckItems={selfCheckItems}
+  readings={readings}
+  previous={{ title: '学习地图：如何规划学习路径', href: '/learning/', note: '回到完整学习路线。' }}
+  next={{ title: '下一篇学习文章', href: '/learning/', note: '替换为实际系列的下一篇。' }}
+>
+  <section id="start" class="article-section">
+    <p class="article-section-label">01 · 从整体开始</p>
+    <h2>先让读者知道这一篇为什么值得读</h2>
+    <p>每篇学习文章都应该先回答一个清楚的问题：这篇文章准备解决什么、读者现在可能卡在哪里、读完之后应该获得什么能力。</p>
+    <p>正文仍然保持自然的阅读流，不把每一段都塞进卡片。页面层级主要依靠标题、留白、轻分隔和少量真正有价值的学习组件建立。</p>
+    <div class="article-think"><strong>思考一下</strong>这篇文章希望读者读完以后发生怎样的变化？</div>
+  </section>
+
+  <section id="structure" class="article-section">
+    <p class="article-section-label">02 · 文章结构</p>
+    <h2>学习型文章，不只是把知识写完整</h2>
+    <p>普通说明页关注信息是否齐全，学习型文章更关注读者能否理解、迁移和复述。模板因此会给“思考、对比、图解、示例、复盘”留出固定位置。</p>
+    <div class="article-compare">
+      <div>
+        <h3>普通说明页</h3>
+        <ul>
+          <li>以功能或知识点为中心</li>
+          <li>线性罗列信息和步骤</li>
+          <li>读者主要被动接收</li>
+          <li>更适合快速查阅</li>
+        </ul>
+      </div>
+      <div class="focus">
+        <h3>学习型文章</h3>
+        <ul>
+          <li>以理解与应用为中心</li>
+          <li>通过图文和示例逐步深入</li>
+          <li>主动引导读者思考</li>
+          <li>更强调复述与迁移</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="visual" class="article-section">
+    <p class="article-section-label">03 · 图文模块</p>
+    <h2>图的任务，是降低理解成本</h2>
+    <p>需要解释流程、关系、组成、差异时，优先使用简单图解。图解可以比正文略宽，但仍然保持在文章容器里，不做复杂后台式架构面板。</p>
+    <figure class="article-flow">
+      <div class="article-flow-row">
+        <div class="article-flow-node">概念</div>
+        <span class="article-flow-arrow">→</span>
+        <div class="article-flow-node">图解</div>
+        <span class="article-flow-arrow">→</span>
+        <div class="article-flow-node">示例</div>
+        <span class="article-flow-arrow">→</span>
+        <div class="article-flow-node">结论</div>
+      </div>
+      <figcaption class="article-caption">图 1：学习型文章推荐的图文节奏</figcaption>
+    </figure>
+    <div class="article-note"><strong>补充说明</strong>如果某个概念用一句话就能讲清楚，就不需要为了视觉丰富而强行画图。</div>
+  </section>
+
+  <section id="code" class="article-section">
+    <p class="article-section-label">04 · 代码与图解</p>
+    <h2>代码应该证明观点，而不是展示复杂度</h2>
+    <p>代码块用于把抽象概念落到可以运行和验证的表达上。示例应尽量短，只留下当前章节真正需要理解的部分。</p>
+    <pre class="article-code" data-language="TypeScript"><code>{codeSample}</code></pre>
+    <div class="article-key-idea"><strong>核心结论</strong>用尽可能简单的代码表达当前章节的核心思想，比追求技巧更重要。</div>
+
+    <div class="article-steps">
+      <div class="article-step">
+        <span>01</span>
+        <div><h3>先解释目的</h3><p>告诉读者这段代码在验证什么，而不是直接贴代码。</p></div>
+      </div>
+      <div class="article-step">
+        <span>02</span>
+        <div><h3>再展示最小实现</h3><p>只保留与当前概念直接相关的代码。</p></div>
+      </div>
+      <div class="article-step">
+        <span>03</span>
+        <div><h3>最后回到结论</h3><p>让示例重新服务于本节想建立的理解。</p></div>
+      </div>
+    </div>
+  </section>
+</LearningArticleLayout>

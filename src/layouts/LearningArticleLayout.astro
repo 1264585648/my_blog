@@ -1,0 +1,237 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import ArticleToc, { type TocItem } from '../components/ArticleToc.astro';
+import { withBase } from '../utils/paths';
+import '../styles/article.css';
+
+type ReviewItem = {
+  title?: string;
+  text: string;
+};
+
+type SelfCheckItem = {
+  question: string;
+  hint?: string;
+};
+
+type ReadingItem = {
+  tag?: string;
+  title: string;
+  href: string;
+  note?: string;
+};
+
+type ArticleLink = {
+  label?: string;
+  title: string;
+  href: string;
+  note?: string;
+};
+
+interface Props {
+  title: string;
+  description: string;
+  seriesLabel?: string;
+  seriesHref?: string;
+  subtitle?: string;
+  date?: string;
+  readingTime?: string;
+  level?: string;
+  backHref?: string;
+  backLabel?: string;
+  heroImage?: string;
+  heroAlt?: string;
+  tocItems?: TocItem[];
+  goals?: string[];
+  reviewItems?: ReviewItem[];
+  selfCheckItems?: SelfCheckItem[];
+  readings?: ReadingItem[];
+  previous?: ArticleLink;
+  next?: ArticleLink;
+}
+
+const {
+  title,
+  description,
+  seriesLabel = 'LEARN · NOTE',
+  seriesHref,
+  subtitle = description,
+  date,
+  readingTime,
+  level,
+  backHref = '/learning/',
+  backLabel = '返回学习路径',
+  heroImage,
+  heroAlt = '',
+  tocItems = [],
+  goals = [],
+  reviewItems = [],
+  selfCheckItems = [],
+  readings = [],
+  previous,
+  next
+} = Astro.props;
+
+const pageTitle = `${title} · xuan.z 的个人笔记`;
+const metaItems = [date, readingTime, level].filter(Boolean);
+const hrefFor = (href: string) => href.startsWith('/') ? withBase(href) : href;
+---
+
+<BaseLayout title={pageTitle} description={description}>
+  <article class="learning-article shell">
+    <a class="learning-article-back" href={hrefFor(backHref)}>← {backLabel}</a>
+
+    <header class="learning-article-hero">
+      <div class="learning-article-hero-copy">
+        {seriesHref ? (
+          <a class="learning-article-series" href={hrefFor(seriesHref)}>{seriesLabel} ↗</a>
+        ) : (
+          <p class="learning-article-series">{seriesLabel}</p>
+        )}
+        <h1>{title}</h1>
+        <p class="learning-article-subtitle">{subtitle}</p>
+        {metaItems.length > 0 && (
+          <div class="learning-article-meta">
+            {metaItems.map((item, index) => (
+              <>
+                {index > 0 && <span aria-hidden="true">·</span>}
+                <span>{item}</span>
+              </>
+            ))}
+          </div>
+        )}
+      </div>
+
+      <div class="learning-article-hero-art" aria-hidden={heroAlt ? undefined : 'true'}>
+        {heroImage ? (
+          <img src={hrefFor(heroImage)} alt={heroAlt} />
+        ) : (
+          <div class="article-notebook-art">
+            <span class="article-notebook-clip"></span>
+            <div class="article-notebook-sheet">
+              <span class="article-notebook-tab"></span>
+              <span class="article-notebook-image"></span>
+              <span class="article-notebook-line line-a"></span>
+              <span class="article-notebook-line line-b"></span>
+              <span class="article-notebook-line line-c"></span>
+              <span class="article-notebook-node node-a"></span>
+              <span class="article-notebook-node node-b"></span>
+              <span class="article-notebook-node node-c"></span>
+              <span class="article-notebook-stem"></span>
+            </div>
+            <div class="article-paper article-paper-code"><b>&lt;/&gt;</b><i></i><i></i><i></i></div>
+            <div class="article-paper article-paper-note"><i></i><i></i><i></i></div>
+            <span class="article-leaf-art leaf-one"></span>
+            <span class="article-leaf-art leaf-two"></span>
+          </div>
+        )}
+      </div>
+    </header>
+
+    {(tocItems.length > 0 || goals.length > 0) && (
+      <div class="learning-article-overview">
+        {tocItems.length > 0 && <ArticleToc items={tocItems} />}
+        {goals.length > 0 && (
+          <section class="learning-goals" aria-labelledby="learning-goals-title">
+            <div class="learning-goals-heading">
+              <span aria-hidden="true">◎</span>
+              <h2 id="learning-goals-title">本章目标</h2>
+            </div>
+            <ul>
+              {goals.map((goal) => (
+                <li><span aria-hidden="true">✓</span><p>{goal}</p></li>
+              ))}
+            </ul>
+            <span class="learning-goals-botanical" aria-hidden="true"></span>
+          </section>
+        )}
+      </div>
+    )}
+
+    <div class="learning-article-body">
+      <slot />
+    </div>
+
+    {(reviewItems.length > 0 || selfCheckItems.length > 0) && (
+      <div class="learning-article-ending-grid">
+        {reviewItems.length > 0 && (
+          <section class="article-review" id="review">
+            <p class="article-card-kicker">REVIEW</p>
+            <h2>本章复盘</h2>
+            <ol>
+              {reviewItems.map((item, index) => (
+                <li>
+                  <span>{String(index + 1).padStart(2, '0')}</span>
+                  <div>
+                    {item.title && <strong>{item.title}</strong>}
+                    <p>{item.text}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+            <span class="article-review-leaf" aria-hidden="true"></span>
+          </section>
+        )}
+
+        {selfCheckItems.length > 0 && (
+          <section class="article-self-check" id="self-check">
+            <p class="article-card-kicker">SELF CHECK</p>
+            <h2>自我检查</h2>
+            <div class="article-self-check-list">
+              {selfCheckItems.map((item, index) => (
+                <details>
+                  <summary><span>Q{index + 1}</span>{item.question}</summary>
+                  {item.hint && <p>{item.hint}</p>}
+                </details>
+              ))}
+            </div>
+          </section>
+        )}
+      </div>
+    )}
+
+    {readings.length > 0 && (
+      <section class="article-readings" id="further-reading">
+        <div class="article-readings-heading">
+          <p class="article-card-kicker">REFERENCES</p>
+          <h2>延伸阅读</h2>
+        </div>
+        <div class="article-reading-list">
+          {readings.map((reading) => (
+            <a href={hrefFor(reading.href)} target={reading.href.startsWith('http') ? '_blank' : undefined} rel={reading.href.startsWith('http') ? 'noreferrer' : undefined}>
+              {reading.tag && <span class="article-reading-tag">{reading.tag}</span>}
+              <div>
+                <strong>{reading.title}</strong>
+                {reading.note && <small>{reading.note}</small>}
+              </div>
+              <span aria-hidden="true">→</span>
+            </a>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {(previous || next) && (
+      <nav class="article-pagination" aria-label="文章翻页">
+        <div>
+          {previous && (
+            <a href={hrefFor(previous.href)}>
+              <span>← {previous.label ?? '上一篇'}</span>
+              <strong>{previous.title}</strong>
+              {previous.note && <small>{previous.note}</small>}
+            </a>
+          )}
+        </div>
+        <div>
+          {next && (
+            <a href={hrefFor(next.href)}>
+              <span>{next.label ?? '下一篇'} →</span>
+              <strong>{next.title}</strong>
+              {next.note && <small>{next.note}</small>}
+            </a>
+          )}
+        </div>
+      </nav>
+    )}
+  </article>
+</BaseLayout>
