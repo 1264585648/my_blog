@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { notes } from '../../data/home';
+import { withBase } from '../../utils/paths';
+---
+
+<BaseLayout
+  title="碎片笔记 · xuan.z 的个人笔记"
+  description="一些不一定够长到成为专题文章，但值得留下来的技术疑问、推导和结论。"
+>
+  <section class="notes-page shell">
+    <p class="page-kicker">Fragments</p>
+    <h1>碎片笔记</h1>
+    <p class="page-lead">不是每个问题都需要写成完整专题。这里更像我的技术草稿本：一个疑问、一个例子、一次推导，想明白就先记下来。</p>
+
+    <div class="note-list">
+      {notes.map((note) => (
+        <a class="note-item" href={withBase(note.href)}>
+          <span><strong>{note.title}</strong><small>碎片笔记</small></span>
+          <time>{note.date}</time>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .notes-page { max-width: 860px; padding-block: 54px 84px; }
+  .page-kicker { margin: 0; color: var(--sage); font-size: 10px; font-weight: 800; letter-spacing: .16em; }
+  h1 { margin: 10px 0 12px; font-family: var(--hand-font); font-size: clamp(38px, 5vw, 56px); }
+  .page-lead { max-width: 680px; margin: 0; color: var(--ink-soft); font-family: var(--body-font); line-height: 1.85; }
+  .note-list { display: grid; gap: 10px; margin-top: 30px; }
+  .note-item { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 18px 20px; border: 1px solid var(--line); border-radius: 14px; background: rgba(255,253,248,.72); color: inherit; text-decoration: none; transition: transform .18s ease, box-shadow .18s ease; }
+  .note-item:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(82,75,63,.06); }
+  .note-item span { display: flex; flex-direction: column; gap: 5px; }
+  .note-item strong { color: #4f4b43; font-family: var(--body-font); font-size: 15px; }
+  .note-item small { color: var(--sage); font-size: 9px; font-weight: 700; letter-spacing: .1em; }
+  .note-item time { flex: 0 0 auto; color: var(--ink-faint); font-size: 11px; }
+  @media (max-width: 640px) {
+    .notes-page { width: min(100% - 28px, 860px); padding-top: 34px; }
+    .note-item { align-items: flex-start; }
+  }
+</style>
