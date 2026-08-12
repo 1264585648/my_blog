@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000" role="img" aria-labelledby="title desc">
+  <title id="title">RAG 学习地图</title>
+  <desc id="desc">符合 xuan.z 个人笔记 Warm Paper · Digital Garden · Notebook Editorial 风格的 RAG 学习路线图。</desc>
+  <defs>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#56472d" flood-opacity=".07"/>
+    </filter>
+    <pattern id="paperLines" width="24" height="24" patternUnits="userSpaceOnUse">
+      <path d="M0 23.5H24" stroke="#d8cfbe" stroke-width=".7" opacity=".22"/>
+    </pattern>
+    <pattern id="paperDots" width="18" height="18" patternUnits="userSpaceOnUse">
+      <circle cx="1.5" cy="1.5" r=".65" fill="#cfc4b2" opacity=".32"/>
+    </pattern>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10Z" fill="#9d9588"/>
+    </marker>
+  </defs>
+
+  <rect width="1600" height="1000" fill="#f8f4eb"/>
+  <rect width="1600" height="1000" fill="url(#paperLines)"/>
+  <circle cx="1330" cy="120" r="250" fill="#ffffff" opacity=".22"/>
+  <circle cx="250" cy="870" r="250" fill="#fffdf8" opacity=".28"/>
+
+  <g transform="translate(105 76)">
+    <text x="0" y="0" font-family="KaiTi, STKaiti, FangSong, serif" font-size="54" font-weight="700" fill="#292821">RAG 学习地图</text>
+    <text x="2" y="48" font-family="Songti SC, STSong, serif" font-size="20" fill="#666254">从“能跑通”开始，逐层理解检索、排序、上下文与工程化。</text>
+    <path d="M3 72C94 63 182 65 273 69" fill="none" stroke="#68795a" stroke-width="3" stroke-linecap="round" opacity=".72"/>
+  </g>
+
+  <g transform="translate(1030 66) rotate(1.5 210 62)" filter="url(#shadow)">
+    <rect x="0" y="0" width="455" height="120" rx="8" fill="#fffaf0" stroke="#ded4c2"/>
+    <rect x="150" y="-9" width="145" height="22" fill="#d8c49d" opacity=".40" transform="rotate(-2 222 2)"/>
+    <text x="28" y="42" font-family="Inter, system-ui, sans-serif" font-size="15" letter-spacing="2" fill="#68795a">ONE MAIN THREAD</text>
+    <text x="28" y="76" font-family="Songti SC, STSong, serif" font-size="18" fill="#5f5b50">知识 → 表示 → 检索 → 排序 → 上下文 → 生成</text>
+    <text x="28" y="101" font-family="Songti SC, STSong, serif" font-size="14" fill="#8a8578">不要把“向量数据库”误当成 RAG 的全部。</text>
+  </g>
+
+  <path d="M150 262 C350 225, 520 270, 755 246 S1145 228, 1455 254" fill="none" stroke="#a69d8d" stroke-width="2" stroke-linecap="round" stroke-dasharray="5 8" opacity=".72"/>
+  <g fill="#f8f4eb" stroke="#68795a" stroke-width="2.2">
+    <circle cx="190" cy="254" r="19"/><circle cx="595" cy="250" r="19"/><circle cx="1000" cy="246" r="19"/><circle cx="1405" cy="252" r="19"/>
+  </g>
+  <g font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" text-anchor="middle" fill="#68795a">
+    <text x="190" y="259">01</text><text x="595" y="255">02</text><text x="1000" y="251">03</text><text x="1405" y="257">04</text>
+  </g>
+
+  <g transform="translate(78 302)" filter="url(#shadow)">
+    <rect x="0" y="0" width="350" height="500" rx="16" fill="#f5f7f0" stroke="#d4dccb"/>
+    <rect x="0" y="0" width="350" height="500" rx="16" fill="url(#paperDots)" opacity=".22"/>
+    <text x="28" y="46" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" letter-spacing="2" fill="#68795a">CHAPTER 01 · FOUNDATIONS</text>
+    <text x="28" y="86" font-family="KaiTi, STKaiti, FangSong, serif" font-size="31" font-weight="700" fill="#35342d">先建立最小心智模型</text>
+    <text x="28" y="118" font-family="Songti SC, STSong, serif" font-size="15" fill="#7a756a">先知道每一步为什么存在，再去背模型名。</text>
+    <path d="M28 142H322" stroke="#d7dfcf"/>
+    <g transform="translate(28 172)">
+      <circle cx="13" cy="12" r="11" fill="#e9efe2" stroke="#9eaf91"/>
+      <text x="13" y="17" text-anchor="middle" font-family="Inter, system-ui" font-size="11" font-weight="700" fill="#536447">01</text>
+      <text x="38" y="17" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="700" fill="#37362f">最小 RAG</text>
+      <text x="38" y="45" font-family="Songti SC, STSong, serif" font-size="15" fill="#666254">Query → Retrieve → Context → LLM → Answer</text>
+    </g>
+    <g transform="translate(28 255)">
+      <circle cx="13" cy="12" r="11" fill="#e9efe2" stroke="#9eaf91"/>
+      <text x="13" y="17" text-anchor="middle" font-family="Inter, system-ui" font-size="11" font-weight="700" fill="#536447">02</text>
+      <text x="38" y="17" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="700" fill="#37362f">Embedding</text>
+      <text x="38" y="45" font-family="Songti SC, STSong, serif" font-size="15" fill="#666254">一句话怎样被表示成向量？</text>
+      <text x="38" y="69" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#8a8578">Tokenizer · Transformer · Pooling</text>
+    </g>
+    <g transform="translate(28 360)">
+      <circle cx="13" cy="12" r="11" fill="#e9efe2" stroke="#9eaf91"/>
+      <text x="13" y="17" text-anchor="middle" font-family="Inter, system-ui" font-size="11" font-weight="700" fill="#536447">03</text>
+      <text x="38" y="17" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="700" fill="#37362f">相似度</text>
+      <text x="38" y="45" font-family="Songti SC, STSong, serif" font-size="15" fill="#666254">向量“接近”到底是什么意思？</text>
+      <text x="38" y="69" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#8a8578">Cosine · Dot Product · Euclidean</text>
+    </g>
+    <path d="M296 440c-4-36 4-62 28-79M298 428c-22-12-38-12-49-1M314 397c18-11 33-12 46-2" fill="none" stroke="#859779" stroke-width="2.5" stroke-linecap="round"/>
+    <path d="M324 361c15-5 27-2 34 10-10 13-22 11-34-10Zm-74 66c15-8 28-7 38 2-8 13-20 12-38-2Zm64-30c15-8 28-8 39 2-8 13-20 12-39-2Z" fill="#afbaa3" opacity=".72"/>
+  </g>
+
+  <g transform="translate(468 302)" filter="url(#shadow)">
+    <rect x="0" y="0" width="350" height="500" rx="16" fill="#f2f6f8" stroke="#d2dde2"/>
+    <rect x="0" y="0" width="350" height="500" rx="16" fill="url(#paperDots)" opacity=".22"/>
+    <text x="28" y="46" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" letter-spacing="2" fill="#667c87">CHAPTER 02 · RETRIEVAL</text>
+    <text x="28" y="86" font-family="KaiTi, STKaiti, FangSong, serif" font-size="31" font-weight="700" fill="#35342d">学会“怎么找”</text>
+    <text x="28" y="118" font-family="Songti SC, STSong, serif" font-size="15" fill="#7a756a">从切块，到索引，再到两套检索范式。</text>
+    <path d="M28 142H322" stroke="#d8e2e6"/>
+    <g transform="translate(28 172)">
+      <circle cx="13" cy="12" r="11" fill="#eaf2f6" stroke="#9fb7c2"/>
+      <text x="13" y="17" text-anchor="middle" font-family="Inter, system-ui" font-size="11" font-weight="700" fill="#5d7682">04</text>
+      <text x="38" y="17" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="700" fill="#37362f">Chunking</text>
+      <text x="38" y="45" font-family="Songti SC, STSong, serif" font-size="15" fill="#666254">怎么切，才能既完整又好检索？</text>
+    </g>
+    <g transform="translate(28 255)">
+      <circle cx="13" cy="12" r="11" fill="#eaf2f6" stroke="#9fb7c2"/>
+      <text x="13" y="17" text-anchor="middle" font-family="Inter, system-ui" font-size="11" font-weight="700" fill="#5d7682">05</text>
+      <text x="38" y="17" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="700" fill="#37362f">向量索引 / ANN</text>
+      <text x="38" y="45" font-family="Songti SC, STSong, serif" font-size="15" fill="#666254">百万向量里，怎样更快找到近邻？</text>
+      <text x="38" y="69" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#8a8578">Brute Force → HNSW / IVF</text>
+    </g>
+    <g transform="translate(28 360)">
+      <circle cx="13" cy="12" r="11" fill="#eaf2f6" stroke="#9fb7c2"/>
+      <text x="13" y="17" text-anchor="middle" font-family="Inter, system-ui" font-size="11" font-weight="700" fill="#5d7682">06</text>
+      <text x="38" y="17" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="700" fill="#37362f">Sparse Retrieval</text>
+      <text x="38" y="45" font-family="Songti SC, STSong, serif" font-size="15" fill="#666254">精确关键词为什么仍然不可替代？</text>
+      <text x="38" y="69" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#8a8578">TF-IDF → BM25 → SPLADE</text>
+    </g>
+    <g transform="translate(256 418) rotate(3 35 26)">
+      <rect x="0" y="0" width="72" height="52" rx="4" fill="#f4ead7" stroke="#ddcfb5"/>
+      <path d="M11 14H59M11 25H50M11 36H56" stroke="#9d8e78" stroke-width="2" stroke-linecap="round"/>
+      <rect x="19" y="-7" width="35" height="13" fill="#d8c49d" opacity=".48"/>
+    </g>
+  </g>
+
+  <g transform="translate(858 302)" filter="url(#shadow)">
+    <rect x="0" y="0" width="350" height="500" rx="16" fill="#faf4e9" stroke="#e2d6c2"/>
+    <rect x="0" y="0" width="350" height="500" rx="16" fill="url(#paperDots)" opacity=".22"/>
+    <text x="28" y="46" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="700" letter-spacing="2" fill="#8b7654">CHAPTER 03 · QUALITY</text>
+    <text x="28" y="86" font-family="KaiTi, STKaiti, FangSong, serif" font-size="31" font-weight="700" fill="#35342d">把召回质量做上去</text>
+    <text x="28" y="118" font-family="Songti SC, STSong, serif" font-size="15" fill="#7a756a">“找到一些”不够，还要找到真正有用的。</text>
+    <path d="M28 142H322" stroke="#e4d9c7"/>
+    <g transform="translate(28 164)">
+      <circle cx="13" cy="12" r="11" fill="#f5ead8" stroke="#cbb795"/>
+      <text x="13" y="17" text-anchor="middle" font-family="Inter, system-ui" font-size="11" font-weight="700" fill="#806b4a">07</text>
+      <text x="38" y="17" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="700" fill="#37362f">Hybrid Search</text>
+      <text x="38" y="43" font-family="Songti SC, STSong, serif" font-size="15" fill="#666254">Dense + Sparse，各自解决什么问题？</text>
+    </g>
+    <g transform="translate(28 244)">
+      <circle cx="13" cy="12" r="11" fill="#f5ead8" stroke="#cbb795"/>
+      <text x="13" y="17" text-anchor="middle" font-family="Inter, system-ui" font-size="11" font-weight="700" fill="#806b4a">08</text>
+      <text x="38" y="17" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="700" fill="#37362f">Fusion</text>
+      <text x="38" y="43" font-family="Songti SC, STSong, serif" font-size="15" fill="#666254">不同分数，怎么合成一个排序？</text>
+      <text x="38" y="65" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#8a8578">RRF · Score Normalization</text>
+    </g>
+    <g transform="translate(28 342)">
+      <circle cx="13" cy="12" r="11" fill="#f5ead8" stroke="#cbb795"/>
+      <text x="13" y="17" text-anchor="middle" font-family="Inter, system-ui" font-size="11" font-weight="700" fill="#806b4a">09</text>
+      <text x="38" y="17" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="700" fill="#37362f">Rerank</text>
+      <text x="38" y="43" font-family="Songti SC, STSong, serif" font-size="15" fill="#666254">“语义相似”不等于“真正能回答”。</text>
+      <text x="38" y="65" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#8a8578">Bi-Encoder → Cross-Encoder</text>
+    </g>
+    <g transform="translate(28 432)">
+      <circle cx="13" cy="12" r="11" fill="#f5ead8" stroke="#cbb795"/>
+      <text x="13" y="17" text-anchor="middle" font-family="Inter, system-ui" font-size="11" font-weight="700" fill="#806b4a">10</text>
+      <text x="38" y="17" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="700" fill="#37362f">Query Optimization</text>
+      <text x="38" y="43" font-family="Inter, system-ui, sans-serif" font-size="12.5" fill="#8a8578">Rewrite · Multi Query · Sub Query · HyDE</text>
+    </g>
+  </g>
+
+  <g transform="translate(1248 302)" filter="url(#shadow)">
+    <rect x="0" y="0" width="274" height="500" rx="16" fill="#f6f2f7" stroke="#ddd4e1"/>
+    <rect x="0" y="0" width="274" height="500" rx="16" fill="url(#paperDots)" opacity=".22"/>
+    <text x="24" y="46" font-family="Inter, system-ui, sans-serif" font-size="12" font-weight="700" letter-spacing="1.4" fill="#7c6c83">CHAPTER 04 · SYSTEM</text>
+    <text x="24" y="86" font-family="KaiTi, STKaiti, FangSong, serif" font-size="29" font-weight="700" fill="#35342d">做成可用的系统</text>
+    <text x="24" y="116" font-family="Songti SC, STSong, serif" font-size="14.5" fill="#7a756a">检索只是中段，终点是可靠回答。</text>
+    <path d="M24 142H250" stroke="#e2dae5"/>
+    <g transform="translate(24 166)">
+      <text x="0" y="14" font-family="Inter, system-ui, sans-serif" font-size="17" font-weight="700" fill="#37362f">11 · Context Assembly</text>
+      <text x="0" y="40" font-family="Songti SC, STSong, serif" font-size="14.5" fill="#666254">Metadata Filter · Citation</text>
+    </g>
+    <g transform="translate(24 246)">
+      <text x="0" y="14" font-family="Inter, system-ui, sans-serif" font-size="17" font-weight="700" fill="#37362f">12 · Evaluation</text>
+      <text x="0" y="40" font-family="Inter, system-ui, sans-serif" font-size="12.5" fill="#8a8578">Recall@K · MRR · NDCG</text>
+      <text x="0" y="62" font-family="Inter, system-ui, sans-serif" font-size="12.5" fill="#8a8578">Faithfulness · Relevance</text>
+    </g>
+    <g transform="translate(24 346)">
+      <text x="0" y="14" font-family="Inter, system-ui, sans-serif" font-size="17" font-weight="700" fill="#37362f">13 · Production</text>
+      <text x="0" y="40" font-family="Songti SC, STSong, serif" font-size="14.5" fill="#666254">权限 · 缓存 · 观测 · 成本</text>
+    </g>
+    <g transform="translate(24 426)">
+      <text x="0" y="14" font-family="Inter, system-ui, sans-serif" font-size="17" font-weight="700" fill="#37362f">14 · Advanced</text>
+      <text x="0" y="40" font-family="Inter, system-ui, sans-serif" font-size="12.5" fill="#8a8578">GraphRAG · Agentic RAG · Memory</text>
+    </g>
+  </g>
+
+  <g transform="translate(120 846)">
+    <path d="M0 23H1295" stroke="#d5cbb9" stroke-width="1.5"/>
+    <circle cx="0" cy="23" r="4" fill="#68795a"/>
+    <text x="0" y="65" font-family="KaiTi, STKaiti, FangSong, serif" font-size="25" font-weight="700" fill="#4d4a41">每个节点都过四关：</text>
+    <g font-family="Songti SC, STSong, serif" font-size="18" fill="#666254">
+      <text x="205" y="65">① 讲清概念</text>
+      <text x="385" y="65">② 画出原理</text>
+      <text x="565" y="65">③ 自己实现</text>
+      <text x="745" y="65">④ 用指标验证</text>
+    </g>
+    <text x="0" y="101" font-family="Songti SC, STSong, serif" font-size="15" fill="#8a8578">建议顺序：先主线，再扩展；先理解为什么，再记住工具名。</text>
+  </g>
+
+  <g transform="translate(1435 848)">
+    <path d="M0 50c15-36 38-59 69-69M20 31C4 17-9 12-19 18M45 4c15-8 28-9 39-1" fill="none" stroke="#819176" stroke-width="2.3" stroke-linecap="round"/>
+    <path d="M69-20c14-3 25 1 31 12-10 12-20 10-31-12ZM-19 18C-4 10 9 12 18 23 8 34-4 32-19 18ZM45 4c14-8 26-7 36 1-7 12-18 12-36-1Z" fill="#aab69c" opacity=".72"/>
+  </g>
+</svg>
