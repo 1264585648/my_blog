@@ -25,7 +25,7 @@ export const learningPhases: LearningPhase[] = [
     title: 'Agent 基础能力',
     description: '理解 Agent 的基本组成、设计方式、工具调用和知识增强。',
     topics: [
-      { index: '01', title: 'Agent Introduction', zh: '什么是 Agent', description: '先弄清 Agent 与普通 LLM 应用、Chatbot 的差别。' },
+      { index: '01', title: 'Agent Introduction', zh: '什么是 Agent', description: '先弄清 Agent 与普通 LLM 应用、Chatbot 的差别。', href: '/articles/agent-introduction/', status: 'current' },
       { index: '02', title: 'Agent Framework', zh: 'Agent 框架', description: '理解 Model、Tool、State、Workflow 的基本关系。' },
       { index: '03', title: 'Agentic Design Patterns', zh: 'Agent 设计模式', description: '理解 Agent 系统中常见的设计模式。' },
       { index: '04', title: 'Tool Use', zh: '工具调用', description: '学习 Function Calling、API 与 Tool Design。' },
